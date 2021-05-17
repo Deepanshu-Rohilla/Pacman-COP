@@ -9,10 +9,13 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   static int numberInRow = 11;
   int numberOfSquares = numberInRow * 16;
-  int player = numberInRow * 14 + 1;
-  int ghost = numberInRow * 2 - 2;
-  int ghost2 = numberInRow * 9 - 1;
-  int ghost3 = numberInRow * 11 - 2;
+  List<int> positionOfMovables = [numberInRow * 14 + 1, numberInRow * 2 - 2, numberInRow * 9 - 1, numberInRow * 11 - 2];
+  List<String> directionOfMovement = ['right', 'left', 'left', 'down'];
+  // Index 0 : Pacman (Player)
+  // Index 1 : Blinky (Red)
+  // Index 2 : Clyde (Yellow)
+  // Index 3 : Inky (Green/Cyan)
+  List<int> foodEaten = [];
   bool preGame = true;
   bool mouthClosed = false;
   var controller;
@@ -121,11 +124,52 @@ class _GameScreenState extends State<GameScreen> {
     149,
   ];
 
-  List<int> food = [];
-  String direction = "right";
-  String ghostLast = "left";
-  String ghostLast2 = "left";
-  String ghostLast3 = "down";
+  void moveLeft(int index){
+    if (!barriers.contains(positionOfMovables[index] - 1)) {
+      setState(() {
+        positionOfMovables[index]--;
+      });
+    }
+  }
+  void moveRight(int index){
+    if (!barriers.contains(positionOfMovables[index] + 1)) {
+      setState(() {
+        positionOfMovables[index]++;
+      });
+    }
+  }
+  void moveUp(int index){
+    if (!barriers.contains(positionOfMovables[index] - numberInRow)) {
+      setState(() {
+        positionOfMovables[index] -= numberInRow;
+      });
+    }
+  }
+  void moveDown(int index){
+    if (!barriers.contains(positionOfMovables[index] + numberInRow)) {
+      setState(() {
+        positionOfMovables[index] += numberInRow;
+      });
+    }
+  }
+
+  void moveMovable(int index){
+    switch(directionOfMovement[index]){
+      case 'left':
+        moveLeft(index);
+        break;
+      case 'right':
+        moveRight(index);
+        break;
+      case 'up':
+        moveUp(index);
+        break;
+      case 'down':
+        moveDown(index);
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold();
