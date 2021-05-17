@@ -3,7 +3,9 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:pacman/maze_objects.dart';
 import 'package:pacman/movables.dart';
+import 'dart:async';
 import 'dart:math';
+
 class GameScreen extends StatefulWidget {
   @override
   _GameScreenState createState() => _GameScreenState();
@@ -128,19 +130,74 @@ class _GameScreenState extends State<GameScreen> {
     149,
   ];
 
+  void gameOverDialog() {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Center(child: Text("Game Over!")),
+            content: Text("Your Score : " + (score).toString()),
+            actions: [
+              RaisedButton(
+                onPressed: () {
+                  resetGame();
+                },
+                textColor: Colors.white,
+                padding: const EdgeInsets.all(0.0),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: <Color>[
+                        Color(0xFF0D47A1),
+                        Color(0xFF1976D2),
+                        Color(0xFF42A5F5),
+                      ],
+                    ),
+                  ),
+                  padding: const EdgeInsets.all(10.0),
+                  child: const Text('Restart'),
+                ),
+              )
+            ],
+          );
+        });
+  }
 
-  Widget generateCell(int index){
-    if(mouthClosed && index==positionOfMovables[0]){
+  void getFood() {
+    for (int i = 0; i < numberOfSquares; i++)
+      if (!barriers.contains(i)) {
+        foodAvailable.add(i);
+      }
+  }
+
+  void resetGame() {
+    audioInGame.loop('pacman_beginning.wav');
+    setState(() {
+      positionOfMovables[0] = numberInRow * 14 + 1;
+      positionOfMovables[1] = numberInRow * 2 - 2;
+      positionOfMovables[2] = numberInRow * 9 - 1;
+      positionOfMovables[3] = numberInRow * 11 - 2;
+      paused = false;
+      preGame = false;
+      mouthClosed = false;
+      directionOfMovement[0] = "right";
+      foodAvailable.clear();
+      getFood();
+      score = 0;
+    });
+  }
+
+  Widget generateCell(int index) {
+    if (mouthClosed && index == positionOfMovables[0]) {
       return Padding(
         padding: EdgeInsets.all(4),
         child: Container(
-          decoration: BoxDecoration(
-              color: Colors.yellow, shape: BoxShape.circle),
+          decoration: BoxDecoration(color: Colors.yellow, shape: BoxShape.circle),
         ),
       );
-    }
-    else if(index == positionOfMovables[0]){
-      switch(directionOfMovement[0]){
+    } else if (index == positionOfMovables[0]) {
+      switch (directionOfMovement[0]) {
         case "left":
           return Transform.rotate(
             angle: pi,
@@ -148,7 +205,7 @@ class _GameScreenState extends State<GameScreen> {
           );
           break;
         case "right":
-          return  Movables(imagePath[0]);
+          return Movables(imagePath[0]);
           break;
         case "up":
           return Transform.rotate(
@@ -165,61 +222,57 @@ class _GameScreenState extends State<GameScreen> {
         default:
           return Movables(imagePath[0]);
       }
-    }
-    else if(index == positionOfMovables[1]){
+    } else if (index == positionOfMovables[1]) {
       return Movables(imagePath[1]);
-    }
-    else if(index == positionOfMovables[2]){
+    } else if (index == positionOfMovables[2]) {
       return Movables(imagePath[2]);
-    }
-    else if(index == positionOfMovables[3]){
+    } else if (index == positionOfMovables[3]) {
       return Movables(imagePath[3]);
-    }
-    else if(barriers.contains(index)){
+    } else if (barriers.contains(index)) {
       return MazeCell(
         innerColor: Colors.blue[900],
         outerColor: Colors.blue[800],
         // child: Text(index.toString()),
       );
-    }
-    else if(preGame || foodAvailable.contains(index)){
+    } else if (preGame || foodAvailable.contains(index)) {
       return Path(
         innerColor: Colors.yellow,
         outerColor: Colors.black,
         // child: Text(index.toString()),
       );
-    }
-    else{
+    } else {
       return Path(
         innerColor: Colors.black,
         outerColor: Colors.black,
       );
     }
-
   }
 
-  void moveLeft(int index){
+  void moveLeft(int index) {
     if (!barriers.contains(positionOfMovables[index] - 1)) {
       setState(() {
         positionOfMovables[index]--;
       });
     }
   }
-  void moveRight(int index){
+
+  void moveRight(int index) {
     if (!barriers.contains(positionOfMovables[index] + 1)) {
       setState(() {
         positionOfMovables[index]++;
       });
     }
   }
-  void moveUp(int index){
+
+  void moveUp(int index) {
     if (!barriers.contains(positionOfMovables[index] - numberInRow)) {
       setState(() {
         positionOfMovables[index] -= numberInRow;
       });
     }
   }
-  void moveDown(int index){
+
+  void moveDown(int index) {
     if (!barriers.contains(positionOfMovables[index] + numberInRow)) {
       setState(() {
         positionOfMovables[index] += numberInRow;
@@ -227,8 +280,8 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
-  void moveMovable(int index){
-    switch(directionOfMovement[index]){
+  void moveMovable(int index) {
+    switch (directionOfMovement[index]) {
       case 'left':
         moveLeft(index);
         break;
@@ -241,6 +294,50 @@ class _GameScreenState extends State<GameScreen> {
       case 'down':
         moveDown(index);
         break;
+    }
+  }
+
+  void playGame() {
+    if (preGame) {
+      advancedPlayer = new AudioPlayer();
+      audioInGame = new AudioCache(fixedPlayer: advancedPlayer);
+      audioPaused = new AudioCache(fixedPlayer: advancedPlayer2);
+      audioInGame.loop('pacman_beginning.wav');
+      preGame = false;
+      getFood();
+      Timer.periodic(Duration(milliseconds: 10), (timer) {
+        if (paused) {
+        } else {
+          advancedPlayer.resume();
+        }
+        if (positionOfMovables[0] == positionOfMovables[1] || positionOfMovables[0] == positionOfMovables[2] || positionOfMovables[0] == positionOfMovables[3]) {
+          advancedPlayer.stop();
+          audioDeath.play('pacman_death.wav');
+          setState(() {
+            positionOfMovables[0] = -1;
+          });
+          gameOverDialog();
+        }
+      });
+      Timer.periodic(Duration(milliseconds: 190), (timer) {
+        if (!paused) {
+          moveMovable(1);
+          moveMovable(2);
+          moveMovable(3);
+        }
+      });
+      Timer.periodic(Duration(milliseconds: 170), (timer) {
+        setState(() {
+          mouthClosed = !mouthClosed;
+        });
+        if (foodAvailable.contains(positionOfMovables[0])) {
+          audioMunch.play('pacman_chomp.wav');
+          setState(() {
+            foodAvailable.remove(positionOfMovables[0]);
+          });
+          score++;
+        }
+      });
     }
   }
 
@@ -271,23 +368,17 @@ class _GameScreenState extends State<GameScreen> {
               },
               child: Container(
                 child: GridView.builder(
-                  padding: (MediaQuery.of(context).size.height.toInt() * 0.0139)
-                      .toInt() >
-                      10
-                      ? EdgeInsets.only(top: 80)
-                      : EdgeInsets.only(top: 20),
+                  padding: (MediaQuery.of(context).size.height.toInt() * 0.0139).toInt() > 10 ? EdgeInsets.only(top: 80) : EdgeInsets.only(top: 20),
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: numberOfSquares,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: numberInRow),
-                  itemBuilder: (BuildContext context, int index){
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: numberInRow),
+                  itemBuilder: (BuildContext context, int index) {
                     return generateCell(index);
                   },
                 ),
               ),
-
             ),
-          )
+          ),
         ],
       ),
     );
