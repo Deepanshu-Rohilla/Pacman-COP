@@ -248,36 +248,163 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
-  void moveLeft(int index) {
-    if (!barriers.contains(positionOfMovables[index] - 1)) {
-      setState(() {
-        positionOfMovables[index]--;
-      });
+  void moveGhost(int index, String direction){
+    switch (direction) {
+      case "left":
+        if (!barriers.contains(positionOfMovables[index] - 1)) {
+          setState(() {
+            positionOfMovables[index]--;
+          });
+        } else {
+          if (!barriers.contains(positionOfMovables[index] + numberInRow)) {
+            setState(() {
+              positionOfMovables[index] += numberInRow;
+              directionOfMovement[index] = "down";
+            });
+          } else if (!barriers.contains(positionOfMovables[index] + 1)) {
+            setState(() {
+              positionOfMovables[index]++;
+              directionOfMovement[index] = "right";
+            });
+          } else if (!barriers.contains(positionOfMovables[index] - numberInRow)) {
+            setState(() {
+              positionOfMovables[index] -= numberInRow;
+              directionOfMovement[index] = "up";
+            });
+          }
+        }
+        break;
+      case "right":
+        if (!barriers.contains(positionOfMovables[index] + 1)) {
+          setState(() {
+            positionOfMovables[index]++;
+          });
+        } else {
+          if (!barriers.contains(positionOfMovables[index] - numberInRow)) {
+            setState(() {
+              positionOfMovables[index] -= numberInRow;
+              directionOfMovement[index] = "up";
+            });
+          } else if (!barriers.contains(positionOfMovables[index] + numberInRow)) {
+            setState(() {
+              positionOfMovables[index] += numberInRow;
+              directionOfMovement[index] = "down";
+            });
+          } else if (!barriers.contains(positionOfMovables[index] - 1)) {
+            setState(() {
+              positionOfMovables[index]--;
+              directionOfMovement[index] = "left";
+            });
+          }
+        }
+        break;
+      case "up":
+        if (!barriers.contains(positionOfMovables[index] - numberInRow)) {
+          setState(() {
+            positionOfMovables[index] -= numberInRow;
+            directionOfMovement[index] = "up";
+          });
+        } else {
+          if (!barriers.contains(positionOfMovables[index] + 1)) {
+            setState(() {
+              positionOfMovables[index]++;
+              directionOfMovement[index] = "right";
+            });
+          } else if (!barriers.contains(positionOfMovables[index] - 1)) {
+            setState(() {
+              positionOfMovables[index]--;
+              directionOfMovement[index] = "left";
+            });
+          } else if (!barriers.contains(positionOfMovables[index] + numberInRow)) {
+            setState(() {
+              positionOfMovables[index] += numberInRow;
+              directionOfMovement[index] = "down";
+            });
+          }
+        }
+        break;
+      case "down":
+        if (!barriers.contains(positionOfMovables[index] + numberInRow)) {
+          setState(() {
+            positionOfMovables[index] += numberInRow;
+            directionOfMovement[index] = "down";
+          });
+        } else {
+          if (!barriers.contains(positionOfMovables[index] - 1)) {
+            setState(() {
+              positionOfMovables[index]--;
+              directionOfMovement[index] = "left";
+            });
+          } else if (!barriers.contains(positionOfMovables[index] + 1)) {
+            setState(() {
+              positionOfMovables[index]++;
+              directionOfMovement[index] = "right";
+            });
+          } else if (!barriers.contains(positionOfMovables[index] - numberInRow)) {
+            setState(() {
+              positionOfMovables[index] -= numberInRow;
+              directionOfMovement[index] = "up";
+            });
+          }
+        }
+        break;
     }
+  }
+
+  void moveLeft(int index) {
+    if(index!=0){
+      moveGhost(index, 'left');
+    }
+    else{
+      if (!barriers.contains(positionOfMovables[index] - 1)) {
+        setState(() {
+          positionOfMovables[index]--;
+        });
+      }
+    }
+
   }
 
   void moveRight(int index) {
-    if (!barriers.contains(positionOfMovables[index] + 1)) {
-      setState(() {
-        positionOfMovables[index]++;
-      });
+    if(index!=0){
+      moveGhost(index, 'right');
     }
+    else{
+      if (!barriers.contains(positionOfMovables[index] + 1)) {
+        setState(() {
+          positionOfMovables[index]++;
+        });
+      }
+    }
+
   }
 
   void moveUp(int index) {
-    if (!barriers.contains(positionOfMovables[index] - numberInRow)) {
-      setState(() {
-        positionOfMovables[index] -= numberInRow;
-      });
+    if(index!=0){
+      moveGhost(index, 'up');
     }
+    else{
+      if (!barriers.contains(positionOfMovables[index] - numberInRow)) {
+        setState(() {
+          positionOfMovables[index] -= numberInRow;
+        });
+      }
+    }
+
   }
 
   void moveDown(int index) {
-    if (!barriers.contains(positionOfMovables[index] + numberInRow)) {
-      setState(() {
-        positionOfMovables[index] += numberInRow;
-      });
+    if(index!=0){
+      moveGhost(index, 'down');
     }
+    else{
+      if (!barriers.contains(positionOfMovables[index] + numberInRow)) {
+        setState(() {
+          positionOfMovables[index] += numberInRow;
+        });
+      }
+    }
+
   }
 
   void moveMovable(int index) {
@@ -337,6 +464,20 @@ class _GameScreenState extends State<GameScreen> {
           });
           score++;
         }
+        switch (directionOfMovement[0]) {
+          case "left":
+            if (!paused) moveLeft(0);
+            break;
+          case "right":
+            if (!paused) moveRight(0);
+            break;
+          case "up":
+            if (!paused) moveUp(0);
+            break;
+          case "down":
+            if (!paused) moveDown(0);
+            break;
+        }
       });
     }
   }
@@ -379,6 +520,70 @@ class _GameScreenState extends State<GameScreen> {
               ),
             ),
           ),
+          Expanded(
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    " Score : " + (score).toString(),
+                    // // (MediaQuery.of(context).size.height.toInt() * 0.0139)
+                    //     .toInt()
+                    //     .toString(),
+                    style: TextStyle(color: Colors.white, fontSize: 23),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      playGame();
+                    },
+                    child: Text("P L A Y",
+                        style: TextStyle(color: Colors.white, fontSize: 23)),
+                  ),
+                  if (!paused)
+                    GestureDetector(
+                      child: Icon(
+                        Icons.pause,
+                        color: Colors.white,
+                      ),
+                      onTap: () => {
+                        if (!paused)
+                          {
+                            paused = true,
+                            advancedPlayer.pause(),
+                            audioPaused.loop('pacman_intermission.wav'),
+                          }
+                        else
+                          {
+                            paused = false,
+                            advancedPlayer2.stop(),
+                          },
+                        Icon(
+                          Icons.play_arrow,
+                          color: Colors.white,
+                        )
+                      },
+                    ),
+                  if (paused)
+                    GestureDetector(
+                      child: Icon(
+                        Icons.play_arrow,
+                        color: Colors.white,
+                      ),
+                      onTap: () => {
+                        if (paused)
+                          {paused = false, advancedPlayer2.stop()}
+                        else
+                          {
+                            paused = true,
+                            advancedPlayer.pause(),
+                            audioPaused.loop('pacman_intermission.wav'),
+                          },
+                      },
+                    ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
