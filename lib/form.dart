@@ -222,11 +222,17 @@ class _GameFormState extends State<GameForm> {
                                   scores.add(0);
                                   gamePlayed.add(false);
                                 }
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(numberOfGhosts, movementSpeed, numberOfPlayers, widget.pacman)));
-//                                Navigator.push(context, MaterialPageRoute(builder: (context) => widget.pacman ?  GameScreen(numberOfGhosts, movementSpeed,numberOfPlayers)
-//                                : MazeGameScreen(numberOfGhosts,movementSpeed,numberOfPlayers)
-//                                )
-//                                );
+                                if(numberOfPlayers>1){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(numberOfGhosts, movementSpeed, numberOfPlayers, widget.pacman)));
+                                }
+                                else{
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => widget.pacman ?  GameScreen(numberOfGhosts, movementSpeed,numberOfPlayers,0)
+                                      : MazeGameScreen(numberOfGhosts,movementSpeed,numberOfPlayers,0)
+                                  )
+                                  );
+                                }
+
+
                               }
 
                             },

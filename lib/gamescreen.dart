@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:audioplayers/audio_cache.dart';
+import 'package:pacman/form.dart';
 import 'package:pacman/main.dart';
 import 'package:pacman/maze_objects.dart';
 import 'package:pacman/movables.dart';
@@ -190,7 +191,13 @@ class _GameScreenState extends State<GameScreen> {
                   });
                   Navigator.pop(context);
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers, true)));
+                  if(widget.numberOfPlayers>1){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers, true)));
+                  }
+                  else{
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => GameForm(true)));
+                  }
+
 
                 },
                 textColor: Colors.white,

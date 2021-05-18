@@ -10,6 +10,7 @@ import 'dart:ffi';
 import 'package:flutter/rendering.dart';
 import 'package:pacman/playerlist.dart';
 
+import 'form.dart';
 import 'main.dart';
 
 class MazeGameScreen extends StatefulWidget {
@@ -192,7 +193,13 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
                   });
                   Navigator.pop(context);
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers, false)));
+                  if(widget.numberOfPlayers>1){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers, false)));
+                  }
+                  else{
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => GameForm(false)));
+                  }
+
 
                 },
                 textColor: Colors.white,
