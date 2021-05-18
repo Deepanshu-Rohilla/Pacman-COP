@@ -5,6 +5,9 @@ import 'package:pacman/maze_objects.dart';
 import 'package:pacman/movables.dart';
 import 'dart:async';
 import 'dart:math';
+import 'dart:ffi';
+
+import 'package:flutter/rendering.dart';
 
 class GameScreen extends StatefulWidget {
   @override
@@ -186,6 +189,8 @@ class _GameScreenState extends State<GameScreen> {
       getFood();
       score = 0;
     });
+    Navigator.pop(context);
+
   }
 
   Widget generateCell(int index) {
