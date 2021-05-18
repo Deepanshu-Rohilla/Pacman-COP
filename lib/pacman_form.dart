@@ -72,9 +72,9 @@ class _PacmanFormState extends State<PacmanForm> {
                       ),
                     ),
                     ListTile(
-                      title: const Text('4 (Hard)'),
+                      title: const Text('3 (Hard)'),
                       leading: Radio(
-                        value: 4,
+                        value: 3,
                         groupValue: numberOfGhosts,
                         onChanged: (int value) {
                           setState(() {

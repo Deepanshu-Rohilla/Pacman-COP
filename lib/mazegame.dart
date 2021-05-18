@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:audioplayers/audio_cache.dart';
 import 'package:pacman/maze_objects.dart';
 import 'package:pacman/movables.dart';
 import 'dart:async';
@@ -16,6 +18,7 @@ class MazeGameScreen extends StatefulWidget {
 }
 
 class _MazeGameScreenState extends State<MazeGameScreen> {
+
   static int numberInRow = 11;
   int numberOfSquares = numberInRow * 16;
   List<int> positionOfMovables = [numberInRow * 14 + 1, numberInRow * 2 - 2, numberInRow * 9 - 1, numberInRow * 11 - 2];
@@ -23,6 +26,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
   List<String> imagePath = ['lib/images/pacman.png', 'lib/images/red.png', 'lib/images/yellow.png', 'lib/images/cyan.png'];
   int destination = numberInRow * 15 - 2;
   String imageDestination = 'lib/images/finish.png';
+  bool win = false;
   // Index 0 : Pacman (Player)
   // Index 1 : Blinky (Red)
   // Index 2 : Clyde (Yellow)
@@ -31,7 +35,12 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
   var controller;
   int score = 0;
   bool paused = false;
-  bool win = false;
+  AudioPlayer advancedPlayer = new AudioPlayer();
+  AudioPlayer advancedPlayer2 = new AudioPlayer();
+  AudioCache audioInGame = new AudioCache(prefix: 'assets/');
+  AudioCache audioMunch = new AudioCache(prefix: 'assets/');
+  AudioCache audioDeath = new AudioCache(prefix: 'assets/');
+  AudioCache audioPaused = new AudioCache(prefix: 'assets/');
   List<int> barriers = [
     0,
     1,
@@ -136,6 +145,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Center(child:Text( win ? 'You won! and the time taken is $score seconds' : 'You lose! and the time taken is $score seconds')),
+            content: Text("Your Score : " + (score).toString()),
             actions: [
               RaisedButton(
                 onPressed: () {
@@ -162,15 +172,18 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
         });
   }
 
-
   void resetGame() {
+    audioInGame.loop('pacman_beginning.wav');
     setState(() {
-      positionOfMovables[0] = numberInRow * 2 - 2;
-      positionOfMovables[1] = numberInRow * 11 - 2;
+      positionOfMovables[0] = numberInRow * 14 + 1;
+      positionOfMovables[1] = numberInRow * 2 - 2;
+      positionOfMovables[2] = numberInRow * 9 - 1;
+      positionOfMovables[3] = numberInRow * 11 - 2;
       paused = false;
       preGame = false;
-      score = 0;
+      win = false;
       directionOfMovement[0] = "right";
+      score = 0;
     });
     Navigator.pop(context);
 
@@ -212,6 +225,10 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
       }
     } else if (index == positionOfMovables[1]) {
       return Movables(imagePath[1]);
+    } else if (index == positionOfMovables[2]) {
+      return Movables(imagePath[2]);
+    } else if (index == positionOfMovables[3]) {
+      return Movables(imagePath[3]);
     } else if (barriers.contains(index)) {
       return MazeCell(
         innerColor: Colors.blue[900],
@@ -220,7 +237,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
       );
     } else if (preGame) {
       return Path(
-        innerColor: Colors.black,
+        innerColor: Colors.yellow,
         outerColor: Colors.black,
         // child: Text(index.toString()),
       );
@@ -413,28 +430,38 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
 
   void playGame() {
     if (preGame) {
+      advancedPlayer = new AudioPlayer();
+      audioInGame = new AudioCache(fixedPlayer: advancedPlayer);
+      audioPaused = new AudioCache(fixedPlayer: advancedPlayer2);
+      audioInGame.loop('pacman_beginning.wav');
       preGame = false;
       Timer.periodic(Duration(milliseconds: 10), (timer) {
         if (paused) {
         } else {
+          advancedPlayer.resume();
         }
-        if (positionOfMovables[0] == positionOfMovables[1]) {
-          setState(() {
-            positionOfMovables[0] = -1;
-            win = false;
-          });
-          gameOverDialog();
+        if (positionOfMovables[0] == positionOfMovables[1] || positionOfMovables[0] == positionOfMovables[2] || positionOfMovables[0] == positionOfMovables[3] || positionOfMovables[0]==destination) {
+          if(positionOfMovables[0]==destination){
+            advancedPlayer.stop();
+            setState(() {
+              positionOfMovables[0] = -1;
+              win = true;
+            });
+
+            gameOverDialog();
+          }
+          else{
+            advancedPlayer.stop();
+            audioDeath.play('pacman_death.wav');
+            setState(() {
+              positionOfMovables[0] = -1;
+              win = false;
+            });
+            gameOverDialog();
+
+          }
+
         }
-        else if(positionOfMovables[0]==destination){
-          setState(() {
-            positionOfMovables[0] = -1;
-            win = true;
-          });
-          gameOverDialog();
-        }
-      });
-      Timer.periodic(Duration(milliseconds: 1000), (timer) {
-        score++;
       });
       switch(widget.movementSpeed){
         case 1:
@@ -474,6 +501,10 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
           });
 
       }
+      Timer.periodic(Duration(milliseconds: 1000), (timer) {
+        score++;
+      });
+
       Timer.periodic(Duration(milliseconds: 170), (timer) {
 
         switch (directionOfMovement[0]) {
@@ -551,7 +582,47 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
                     child: Text("P L A Y",
                         style: TextStyle(color: Colors.white, fontSize: 23)),
                   ),
-
+                  if (!paused)
+                    GestureDetector(
+                      child: Icon(
+                        Icons.pause,
+                        color: Colors.white,
+                      ),
+                      onTap: () => {
+                        if (!paused)
+                          {
+                            paused = true,
+                            advancedPlayer.pause(),
+                            audioPaused.loop('pacman_intermission.wav'),
+                          }
+                        else
+                          {
+                            paused = false,
+                            advancedPlayer2.stop(),
+                          },
+                        Icon(
+                          Icons.play_arrow,
+                          color: Colors.white,
+                        )
+                      },
+                    ),
+                  if (paused)
+                    GestureDetector(
+                      child: Icon(
+                        Icons.play_arrow,
+                        color: Colors.white,
+                      ),
+                      onTap: () => {
+                        if (paused)
+                          {paused = false, advancedPlayer2.stop()}
+                        else
+                          {
+                            paused = true,
+                            advancedPlayer.pause(),
+                            audioPaused.loop('pacman_intermission.wav'),
+                          },
+                      },
+                    ),
                 ],
               ),
             ),
