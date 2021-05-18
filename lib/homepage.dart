@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pacman/developers.dart';
 import 'package:pacman/gamescreen.dart';
 import 'package:pacman/mazegame_form.dart';
 import 'package:pacman/pacman_form.dart';
@@ -85,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
               ),),
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen(0,0)));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Developers()));
             },
           ),
 
