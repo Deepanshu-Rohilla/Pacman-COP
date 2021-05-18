@@ -12,7 +12,8 @@ import 'package:flutter/rendering.dart';
 class MazeGameScreen extends StatefulWidget {
   int numberOfGhosts;
   int movementSpeed;
-  MazeGameScreen(this.numberOfGhosts, this.movementSpeed);
+  int numberOfPlayers;
+  MazeGameScreen(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers);
   @override
   _MazeGameScreenState createState() => _MazeGameScreenState();
 }
@@ -532,7 +533,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    " Score : " + (score).toString(),
+                    " Time : " + (score).toString(),
                     // // (MediaQuery.of(context).size.height.toInt() * 0.0139)
                     //     .toInt()
                     //     .toString(),

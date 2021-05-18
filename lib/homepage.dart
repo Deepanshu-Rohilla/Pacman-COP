@@ -2,9 +2,8 @@ import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pacman/developers.dart';
 import 'package:pacman/gamescreen.dart';
-import 'package:pacman/mazegame_form.dart';
-import 'package:pacman/pacman_form.dart';
 
+import 'form.dart';
 import 'mazegame.dart';
 
 class HomePage extends StatefulWidget {
@@ -43,7 +42,7 @@ class _HomePageState extends State<HomePage> {
               ),
               ),
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => PacmanForm()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => GameForm(true)));
               },
             ),
           ),
@@ -59,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                   ),),
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => MazeGameForm()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => GameForm(false)));
               },
             ),
           ),
@@ -73,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
               ),),
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen(0,0)));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen(0,0,0)));
             },
           ),
           GestureDetector(

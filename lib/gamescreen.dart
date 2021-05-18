@@ -12,7 +12,8 @@ import 'package:flutter/rendering.dart';
 class GameScreen extends StatefulWidget {
   int numberOfGhosts;
   int movementSpeed;
-  GameScreen(this.numberOfGhosts, this.movementSpeed);
+  int numberOfPlayers;
+  GameScreen(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers);
   @override
   _GameScreenState createState() => _GameScreenState();
 }
