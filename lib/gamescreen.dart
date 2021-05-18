@@ -21,9 +21,12 @@ class _GameScreenState extends State<GameScreen> {
 
   static int numberInRow = 11;
   int numberOfSquares = numberInRow * 16;
-  List<int> positionOfMovables = [numberInRow * 14 + 1, numberInRow * 2 - 2, numberInRow * 9 - 1, numberInRow * 11 - 2];
-  List<String> directionOfMovement = ['right', 'left', 'left', 'down'];
-  List<String> imagePath = ['lib/images/pacman.png', 'lib/images/red.png', 'lib/images/yellow.png', 'lib/images/cyan.png'];
+  int playerPosition = numberInRow * 14 + 1;
+  String playerDirection = 'right';
+  String playerImage = 'lib/images/pacman.png';
+  List<int> positionOfMovables = [ numberInRow * 2 - 2, numberInRow * 9 - 1, numberInRow * 11 - 2];
+  List<String> directionOfMovement = ['left', 'left', 'down'];
+  List<String> imagePath = ['lib/images/red.png', 'lib/images/yellow.png', 'lib/images/cyan.png'];
   // Index 0 : Pacman (Player)
   // Index 1 : Blinky (Red)
   // Index 2 : Clyde (Yellow)
@@ -171,7 +174,7 @@ class _GameScreenState extends State<GameScreen> {
         });
   }
 
-  void getFood() {
+  void getFood(){
     for (int i = 0; i < numberOfSquares; i++)
       if (!barriers.contains(i)) {
         foodAvailable.add(i);
@@ -181,14 +184,22 @@ class _GameScreenState extends State<GameScreen> {
   void resetGame() {
     audioInGame.loop('pacman_beginning.wav');
     setState(() {
-      positionOfMovables[0] = numberInRow * 14 + 1;
-      positionOfMovables[1] = numberInRow * 2 - 2;
-      positionOfMovables[2] = numberInRow * 9 - 1;
-      positionOfMovables[3] = numberInRow * 11 - 2;
+      playerPosition = numberInRow * 14 + 1;
+      for(int i=0;i<widget.numberOfGhosts;i++){
+        if(i==0){
+          positionOfMovables[0] = numberInRow * 2 - 2;
+        }
+        else if(i==1){
+          positionOfMovables[1] = numberInRow * 9 - 1;
+        }
+        else{
+          positionOfMovables[2] = numberInRow * 11 - 2;
+        }
+      }
       paused = false;
       preGame = false;
       mouthClosed = false;
-      directionOfMovement[0] = "right";
+      playerDirection = "right";
       foodAvailable.clear();
       getFood();
       score = 0;
@@ -198,45 +209,45 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Widget generateCell(int index) {
-    if (mouthClosed && index == positionOfMovables[0]) {
+    if (mouthClosed && index == playerPosition) {
       return Padding(
         padding: EdgeInsets.all(4),
         child: Container(
           decoration: BoxDecoration(color: Colors.yellow, shape: BoxShape.circle),
         ),
       );
-    } else if (index == positionOfMovables[0]) {
-      switch (directionOfMovement[0]) {
+    } else if (index == playerPosition) {
+      switch (playerDirection) {
         case "left":
           return Transform.rotate(
             angle: pi,
-            child: Movables(imagePath[0]),
+            child: Movables(playerImage),
           );
           break;
         case "right":
-          return Movables(imagePath[0]);
+          return Movables(playerImage);
           break;
         case "up":
           return Transform.rotate(
             angle: 3 * pi / 2,
-            child: Movables(imagePath[0]),
+            child: Movables(playerImage),
           );
           break;
         case "down":
           return Transform.rotate(
             angle: pi / 2,
-            child: Movables(imagePath[0]),
+            child: Movables(playerImage),
           );
           break;
         default:
-          return Movables(imagePath[0]);
+          return Movables(playerImage);
       }
-    } else if (index == positionOfMovables[1]) {
+    } else if (index == positionOfMovables[0]) {
+      return Movables(imagePath[0]);
+    } else if (index == positionOfMovables[1] && widget.numberOfGhosts>1) {
       return Movables(imagePath[1]);
-    } else if (index == positionOfMovables[2]) {
+    } else if (index == positionOfMovables[2] && widget.numberOfGhosts>2) {
       return Movables(imagePath[2]);
-    } else if (index == positionOfMovables[3]) {
-      return Movables(imagePath[3]);
     } else if (barriers.contains(index)) {
       return MazeCell(
         innerColor: Colors.blue[900],
@@ -257,8 +268,9 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
-  void moveGhost(int index, String direction){
-    switch (direction) {
+  void moveGhost(int index){
+
+    switch (directionOfMovement[index]) {
       case "left":
         if (!barriers.contains(positionOfMovables[index] - 1)) {
           setState(() {
@@ -360,78 +372,39 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
-  void moveLeft(int index) {
-    if(index!=0){
-      moveGhost(index, 'left');
-    }
-    else{
-      if (!barriers.contains(positionOfMovables[index] - 1)) {
-        setState(() {
-          positionOfMovables[index]--;
-        });
-      }
-    }
-
-  }
-
-  void moveRight(int index) {
-    if(index!=0){
-      moveGhost(index, 'right');
-    }
-    else{
-      if (!barriers.contains(positionOfMovables[index] + 1)) {
-        setState(() {
-          positionOfMovables[index]++;
-        });
-      }
-    }
-
-  }
-
-  void moveUp(int index) {
-    if(index!=0){
-      moveGhost(index, 'up');
-    }
-    else{
-      if (!barriers.contains(positionOfMovables[index] - numberInRow)) {
-        setState(() {
-          positionOfMovables[index] -= numberInRow;
-        });
-      }
-    }
-
-  }
-
-  void moveDown(int index) {
-    if(index!=0){
-      moveGhost(index, 'down');
-    }
-    else{
-      if (!barriers.contains(positionOfMovables[index] + numberInRow)) {
-        setState(() {
-          positionOfMovables[index] += numberInRow;
-        });
-      }
-    }
-
-  }
-
-  void moveMovable(int index) {
-    switch (directionOfMovement[index]) {
+  void movePlayer(){
+    switch (playerDirection) {
       case 'left':
-        moveLeft(index);
+        if (!barriers.contains(playerPosition - 1)) {
+          setState(() {
+            playerPosition--;
+          });
+        }
         break;
       case 'right':
-        moveRight(index);
+        if (!barriers.contains(playerPosition + 1)) {
+          setState(() {
+            playerPosition++;
+          });
+        }
         break;
       case 'up':
-        moveUp(index);
+        if (!barriers.contains(playerPosition - numberInRow)) {
+          setState(() {
+            playerPosition -= numberInRow;
+          });
+        }
         break;
       case 'down':
-        moveDown(index);
+        if (!barriers.contains(playerPosition + numberInRow)) {
+          setState(() {
+            playerPosition += numberInRow;
+          });
+        }
         break;
     }
   }
+
 
   void playGame() {
     if (preGame) {
@@ -446,11 +419,11 @@ class _GameScreenState extends State<GameScreen> {
         } else {
           advancedPlayer.resume();
         }
-        if (positionOfMovables[0] == positionOfMovables[1] || positionOfMovables[0] == positionOfMovables[2] || positionOfMovables[0] == positionOfMovables[3]) {
+        if (positionOfMovables.sublist(0,widget.numberOfGhosts).contains(playerPosition)) {
           advancedPlayer.stop();
           audioDeath.play('pacman_death.wav');
           setState(() {
-            positionOfMovables[0] = -1;
+            playerPosition = -1;
           });
           gameOverDialog();
         }
@@ -459,36 +432,36 @@ class _GameScreenState extends State<GameScreen> {
         case 1:
           Timer.periodic(Duration(milliseconds: 240), (timer) {
             if (!paused) {
-              moveMovable(1);
-              moveMovable(2);
-              moveMovable(3);
+              for(int i=0;i<widget.numberOfGhosts;i++){
+                moveGhost(i);
+              }
             }
           });
           break;
         case 2:
           Timer.periodic(Duration(milliseconds: 190), (timer) {
             if (!paused) {
-              moveMovable(1);
-              moveMovable(2);
-              moveMovable(3);
+              for(int i=0;i<widget.numberOfGhosts;i++){
+                moveGhost(i);
+              }
             }
           });
           break;
         case 3:
           Timer.periodic(Duration(milliseconds: 170), (timer) {
             if (!paused) {
-              moveMovable(1);
-              moveMovable(2);
-              moveMovable(3);
+              for(int i=0;i<widget.numberOfGhosts;i++){
+                moveGhost(i);
+              }
             }
           });
           break;
         default:
           Timer.periodic(Duration(milliseconds: 190), (timer) {
             if (!paused) {
-              moveMovable(1);
-              moveMovable(2);
-              moveMovable(3);
+              for(int i=0;i<widget.numberOfGhosts;i++){
+                moveGhost(i);
+              }
             }
           });
 
@@ -498,27 +471,14 @@ class _GameScreenState extends State<GameScreen> {
         setState(() {
           mouthClosed = !mouthClosed;
         });
-        if (foodAvailable.contains(positionOfMovables[0])) {
+        if (foodAvailable.contains(playerPosition)) {
           audioMunch.play('pacman_chomp.wav');
           setState(() {
-            foodAvailable.remove(positionOfMovables[0]);
+            foodAvailable.remove(playerPosition);
           });
           score++;
         }
-        switch (directionOfMovement[0]) {
-          case "left":
-            if (!paused) moveLeft(0);
-            break;
-          case "right":
-            if (!paused) moveRight(0);
-            break;
-          case "up":
-            if (!paused) moveUp(0);
-            break;
-          case "down":
-            if (!paused) moveDown(0);
-            break;
-        }
+        movePlayer();
       });
     }
   }
@@ -534,17 +494,17 @@ class _GameScreenState extends State<GameScreen> {
             child: GestureDetector(
               onVerticalDragUpdate: (details) {
                 if (details.delta.dy > 0) {
-                  directionOfMovement[0] = "down";
+                  playerDirection = "down";
                 } else if (details.delta.dy < 0) {
-                  directionOfMovement[0] = "up";
+                  playerDirection = "up";
                 }
                 // print(direction);
               },
               onHorizontalDragUpdate: (details) {
                 if (details.delta.dx > 0) {
-                  directionOfMovement[0] = "right";
+                  playerDirection = "right";
                 } else if (details.delta.dx < 0) {
-                  directionOfMovement[0] = "left";
+                  playerDirection = "left";
                 }
                 // print(direction);
               },
