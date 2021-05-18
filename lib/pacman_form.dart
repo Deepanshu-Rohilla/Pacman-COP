@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pacman/gamescreen.dart';
 
 class PacmanForm extends StatefulWidget {
@@ -21,9 +22,12 @@ class _PacmanFormState extends State<PacmanForm> {
         children: [
           SizedBox(height: h/6),
             Text('Set Difficulty',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
+              style: GoogleFonts.caveat(
+                textStyle: Theme.of(context).textTheme.headline4,
+                fontSize: 60,
+                fontWeight: FontWeight.w700,
+                fontStyle: FontStyle.italic,
+                color: Colors.white,
               ),),
 
 
@@ -36,9 +40,12 @@ class _PacmanFormState extends State<PacmanForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text('Choose number of ghosts',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
+                      style: GoogleFonts.caveat(
+                        textStyle: Theme.of(context).textTheme.headline4,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.white,
                       ),),
                     ListTile(
                       title: const Text('1 (Easy)'),
@@ -77,9 +84,12 @@ class _PacmanFormState extends State<PacmanForm> {
                       ),
                     ),
                     Text('Choose movement speed',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
+                      style: GoogleFonts.caveat(
+                        textStyle: Theme.of(context).textTheme.headline4,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.white,
                       ),),
                     ListTile(
                       title: const Text('Slow (Easy)'),
