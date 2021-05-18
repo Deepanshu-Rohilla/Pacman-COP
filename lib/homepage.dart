@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:pacman/gamescreen.dart';
+import 'package:pacman/mazegame_form.dart';
 import 'package:pacman/pacman_form.dart';
 import 'package:pacman/settings.dart.dart';
 
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           SizedBox(
             width: w,
-            height: h/8,
+            height: h/20,
           ),
           GestureDetector(
             child: Text('Pacman',
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage> {
 
           SizedBox(
             width: w,
-            height: h/8,
+            height: h/20,
           ),
           GestureDetector(
             child: Text('Maze Game',
@@ -58,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                 fontWeight: FontWeight.bold,
               ),),
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => MazeGameScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => MazeGameForm()));
             },
           ),
           GestureDetector(
@@ -73,7 +74,7 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(
             width: w,
-            height: h/8,
+            height: h/20,
           ),
           GestureDetector(
             child: Text('About the developers',

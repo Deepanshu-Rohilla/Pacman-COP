@@ -8,6 +8,9 @@ import 'dart:ffi';
 import 'package:flutter/rendering.dart';
 
 class MazeGameScreen extends StatefulWidget {
+  int numberOfGhosts;
+  int movementSpeed;
+  MazeGameScreen(this.numberOfGhosts, this.movementSpeed);
   @override
   _MazeGameScreenState createState() => _MazeGameScreenState();
 }
@@ -15,10 +18,10 @@ class MazeGameScreen extends StatefulWidget {
 class _MazeGameScreenState extends State<MazeGameScreen> {
   static int numberInRow = 11;
   int numberOfSquares = numberInRow * 16;
-  List<int> positionOfMovables = [numberInRow * 2 - 2, numberInRow * 11 - 2];
+  List<int> positionOfMovables = [numberInRow * 14 + 1, numberInRow * 2 - 2, numberInRow * 9 - 1, numberInRow * 11 - 2];
+  List<String> directionOfMovement = ['right', 'left', 'left', 'down'];
+  List<String> imagePath = ['lib/images/pacman.png', 'lib/images/red.png', 'lib/images/yellow.png', 'lib/images/cyan.png'];
   int destination = numberInRow * 15 - 2;
-  List<String> directionOfMovement = ['right', 'left'];
-  List<String> imagePath = ['lib/images/player.png', 'lib/images/red.png'];
   String imageDestination = 'lib/images/finish.png';
   // Index 0 : Pacman (Player)
   // Index 1 : Blinky (Red)
@@ -433,11 +436,44 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
       Timer.periodic(Duration(milliseconds: 1000), (timer) {
         score++;
       });
-      Timer.periodic(Duration(milliseconds: 190), (timer) {
-        if (!paused) {
-          moveMovable(1);
-        }
-      });
+      switch(widget.movementSpeed){
+        case 1:
+          Timer.periodic(Duration(milliseconds: 240), (timer) {
+            if (!paused) {
+              moveMovable(1);
+              moveMovable(2);
+              moveMovable(3);
+            }
+          });
+          break;
+        case 2:
+          Timer.periodic(Duration(milliseconds: 190), (timer) {
+            if (!paused) {
+              moveMovable(1);
+              moveMovable(2);
+              moveMovable(3);
+            }
+          });
+          break;
+        case 3:
+          Timer.periodic(Duration(milliseconds: 170), (timer) {
+            if (!paused) {
+              moveMovable(1);
+              moveMovable(2);
+              moveMovable(3);
+            }
+          });
+          break;
+        default:
+          Timer.periodic(Duration(milliseconds: 190), (timer) {
+            if (!paused) {
+              moveMovable(1);
+              moveMovable(2);
+              moveMovable(3);
+            }
+          });
+
+      }
       Timer.periodic(Duration(milliseconds: 170), (timer) {
 
         switch (directionOfMovement[0]) {

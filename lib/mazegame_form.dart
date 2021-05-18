@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pacman/gamescreen.dart';
+import 'package:pacman/mazegame.dart';
 
-class PacmanForm extends StatefulWidget {
+class MazeGameForm extends StatefulWidget {
 
   @override
-  _PacmanFormState createState() => _PacmanFormState();
+  _MazeGameFormState createState() => _MazeGameFormState();
 }
 
-class _PacmanFormState extends State<PacmanForm> {
+class _MazeGameFormState extends State<MazeGameForm> {
 
 
   final _formKey = GlobalKey<FormState>();
@@ -20,11 +21,11 @@ class _PacmanFormState extends State<PacmanForm> {
       body: Column(
         children: [
           SizedBox(height: h/6),
-            Text('Set Difficulty',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-              ),),
+          Text('Set Difficulty',
+            style: TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),),
 
 
           Center(
@@ -41,9 +42,9 @@ class _PacmanFormState extends State<PacmanForm> {
                         fontWeight: FontWeight.bold,
                       ),),
                     ListTile(
-                      title: const Text('1 (Easy)'),
+                      title: const Text('0 (Easy)'),
                       leading: Radio(
-                        value: 1,
+                        value: 0,
                         groupValue: numberOfGhosts,
                         onChanged: (int value) {
                           setState(() {
@@ -53,9 +54,9 @@ class _PacmanFormState extends State<PacmanForm> {
                       ),
                     ),
                     ListTile(
-                      title: const Text('2 (Medium)'),
+                      title: const Text('1 (Medium)'),
                       leading: Radio(
-                        value: 2,
+                        value: 1,
                         groupValue: numberOfGhosts,
                         onChanged: (int value) {
                           setState(() {
@@ -127,42 +128,40 @@ class _PacmanFormState extends State<PacmanForm> {
                           }
                         },
                         child: GestureDetector(
-                           child : Text('Submit'),
+                          child : Text('Submit'),
                           onTap: (){
-                             if(numberOfGhosts==-1 || movementSpeed==-1){
-                               showDialog(context: context, builder: (BuildContext context){
-                                 return AlertDialog(
-                                   title: Center(child: Text( numberOfGhosts==-1 ?"Please enter the number of ghosts!" : "Please enter the movement speed!")),
-                                   actions: [
-                                     RaisedButton(
-                                       onPressed: () {
-                                         Navigator.pop(context);
-                                       },
-                                       textColor: Colors.white,
-                                       padding: const EdgeInsets.all(0.0),
-                                       child: Container(
-                                         decoration: const BoxDecoration(
-                                           gradient: LinearGradient(
-                                             colors: <Color>[
-                                               Color(0xFF0D47A1),
-                                               Color(0xFF1976D2),
-                                               Color(0xFF42A5F5),
-                                             ],
-                                           ),
-                                         ),
-                                         padding: const EdgeInsets.all(10.0),
-                                         child: const Text('Go Back'),
-                                       ),
-                                     )
-                                   ],
-                                 );
-                               });
-                             }
-                             else{
-                               print(numberOfGhosts);
-                               print(movementSpeed);
-                               Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen(numberOfGhosts, movementSpeed)));
-                             }
+                            if(numberOfGhosts==-1 || movementSpeed==-1){
+                              showDialog(context: context, builder: (BuildContext context){
+                                return AlertDialog(
+                                  title: Center(child: Text( numberOfGhosts==-1 ?"Please enter the number of ghosts!" : "Please enter the movement speed!")),
+                                  actions: [
+                                    RaisedButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      textColor: Colors.white,
+                                      padding: const EdgeInsets.all(0.0),
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: <Color>[
+                                              Color(0xFF0D47A1),
+                                              Color(0xFF1976D2),
+                                              Color(0xFF42A5F5),
+                                            ],
+                                          ),
+                                        ),
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: const Text('Go Back'),
+                                      ),
+                                    )
+                                  ],
+                                );
+                              });
+                            }
+                            else{
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MazeGameScreen(numberOfGhosts, movementSpeed)));
+                            }
 
                           },
                         ),

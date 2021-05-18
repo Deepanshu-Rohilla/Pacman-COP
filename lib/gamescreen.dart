@@ -18,6 +18,7 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
+
   static int numberInRow = 11;
   int numberOfSquares = numberInRow * 16;
   List<int> positionOfMovables = [numberInRow * 14 + 1, numberInRow * 2 - 2, numberInRow * 9 - 1, numberInRow * 11 - 2];
@@ -454,13 +455,45 @@ class _GameScreenState extends State<GameScreen> {
           gameOverDialog();
         }
       });
-      Timer.periodic(Duration(milliseconds: 190), (timer) {
-        if (!paused) {
-          moveMovable(1);
-          moveMovable(2);
-          moveMovable(3);
-        }
-      });
+      switch(widget.movementSpeed){
+        case 1:
+          Timer.periodic(Duration(milliseconds: 240), (timer) {
+            if (!paused) {
+              moveMovable(1);
+              moveMovable(2);
+              moveMovable(3);
+            }
+          });
+          break;
+        case 2:
+          Timer.periodic(Duration(milliseconds: 190), (timer) {
+            if (!paused) {
+              moveMovable(1);
+              moveMovable(2);
+              moveMovable(3);
+            }
+          });
+          break;
+        case 3:
+          Timer.periodic(Duration(milliseconds: 170), (timer) {
+            if (!paused) {
+              moveMovable(1);
+              moveMovable(2);
+              moveMovable(3);
+            }
+          });
+          break;
+        default:
+          Timer.periodic(Duration(milliseconds: 190), (timer) {
+            if (!paused) {
+              moveMovable(1);
+              moveMovable(2);
+              moveMovable(3);
+            }
+          });
+
+      }
+
       Timer.periodic(Duration(milliseconds: 170), (timer) {
         setState(() {
           mouthClosed = !mouthClosed;
