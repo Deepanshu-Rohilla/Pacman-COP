@@ -1,5 +1,9 @@
 import "package:flutter/material.dart";
 import 'package:pacman/gamescreen.dart';
+import 'package:pacman/pacman_form.dart';
+import 'package:pacman/settings.dart.dart';
+
+import 'mazegame.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,6 +18,16 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Pacman'),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.settings),
+              tooltip: 'Settings',
+              onPressed: () {
+                return Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return Settings();
+                }));
+              })
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -23,13 +37,13 @@ class _HomePageState extends State<HomePage> {
             height: h/8,
           ),
           GestureDetector(
-            child: Text('New Game',
+            child: Text('Pacman',
               style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
               ),),
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => PacmanForm()));
             },
           ),
 
@@ -38,13 +52,23 @@ class _HomePageState extends State<HomePage> {
             height: h/8,
           ),
           GestureDetector(
+            child: Text('Maze Game',
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ),),
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => MazeGameScreen()));
+            },
+          ),
+          GestureDetector(
             child: Text('How to play',
               style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
               ),),
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen(0,0)));
             },
           ),
           SizedBox(
@@ -58,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                 fontWeight: FontWeight.bold,
               ),),
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen(0,0)));
             },
           ),
           SizedBox(
