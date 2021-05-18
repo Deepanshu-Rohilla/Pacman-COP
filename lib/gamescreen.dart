@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:audioplayers/audio_cache.dart';
+import 'package:pacman/main.dart';
 import 'package:pacman/maze_objects.dart';
 import 'package:pacman/movables.dart';
 import 'dart:async';
@@ -8,12 +9,14 @@ import 'dart:math';
 import 'dart:ffi';
 
 import 'package:flutter/rendering.dart';
+import 'package:pacman/playerlist.dart';
 
 class GameScreen extends StatefulWidget {
   int numberOfGhosts;
   int movementSpeed;
   int numberOfPlayers;
-  GameScreen(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers);
+  int playerNumber;
+  GameScreen(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers, this.playerNumber);
   @override
   _GameScreenState createState() => _GameScreenState();
 }
@@ -173,7 +176,37 @@ class _GameScreenState extends State<GameScreen> {
                     ),
                   ),
                   padding: const EdgeInsets.all(10.0),
-                  child: const Text('Restart'),
+                  child: const Text('Try Again'),
+                ),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  setState(() {
+                    scores[widget.playerNumber] = score;
+                  });
+                  resetGame();
+                  setState(() {
+
+                  });
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers, true)));
+
+                },
+                textColor: Colors.white,
+                padding: const EdgeInsets.all(0.0),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: <Color>[
+                        Color(0xFF0D47A1),
+                        Color(0xFF1976D2),
+                        Color(0xFF42A5F5),
+                      ],
+                    ),
+                  ),
+                  padding: const EdgeInsets.all(10.0),
+                  child: const Text('Submit Score'),
                 ),
               )
             ],

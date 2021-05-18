@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'homepage.dart';
 
+List<int> scores = [];
+List<bool> gamePlayed = [];
+
 void main() {
   runApp(MyApp());
 }

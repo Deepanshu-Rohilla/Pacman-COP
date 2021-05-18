@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pacman/gamescreen.dart';
+import 'package:pacman/playerlist.dart';
 
+import 'main.dart';
 import 'mazegame.dart';
 
 class GameForm extends StatefulWidget {
@@ -214,8 +216,17 @@ class _GameFormState extends State<GameForm> {
                               else{
                                 print(numberOfGhosts);
                                 print(movementSpeed);
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => widget.pacman ?  GameScreen(numberOfGhosts, movementSpeed,numberOfPlayers)
-                                : MazeGameScreen(numberOfGhosts,movementSpeed,numberOfPlayers)));
+                                scores = [];
+                                gamePlayed = [];
+                                for (int i = 0; i < numberOfPlayers; i++) {
+                                  scores.add(0);
+                                  gamePlayed.add(false);
+                                }
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(numberOfGhosts, movementSpeed, numberOfPlayers, widget.pacman)));
+//                                Navigator.push(context, MaterialPageRoute(builder: (context) => widget.pacman ?  GameScreen(numberOfGhosts, movementSpeed,numberOfPlayers)
+//                                : MazeGameScreen(numberOfGhosts,movementSpeed,numberOfPlayers)
+//                                )
+//                                );
                               }
 
                             },

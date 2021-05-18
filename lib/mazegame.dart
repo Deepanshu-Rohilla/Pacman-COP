@@ -8,12 +8,16 @@ import 'dart:math';
 import 'dart:ffi';
 
 import 'package:flutter/rendering.dart';
+import 'package:pacman/playerlist.dart';
+
+import 'main.dart';
 
 class MazeGameScreen extends StatefulWidget {
   int numberOfGhosts;
   int movementSpeed;
   int numberOfPlayers;
-  MazeGameScreen(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers);
+  int playerNumber;
+  MazeGameScreen(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers, this.playerNumber);
   @override
   _MazeGameScreenState createState() => _MazeGameScreenState();
 }
@@ -174,7 +178,37 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
                     ),
                   ),
                   padding: const EdgeInsets.all(10.0),
-                  child: const Text('Restart'),
+                  child: const Text('Try Again'),
+                ),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  setState(() {
+                    scores[widget.playerNumber] = score;
+                  });
+                  resetGame();
+                  setState(() {
+
+                  });
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers, false)));
+
+                },
+                textColor: Colors.white,
+                padding: const EdgeInsets.all(0.0),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: <Color>[
+                        Color(0xFF0D47A1),
+                        Color(0xFF1976D2),
+                        Color(0xFF42A5F5),
+                      ],
+                    ),
+                  ),
+                  padding: const EdgeInsets.all(10.0),
+                  child: const Text('Submit Score'),
                 ),
               )
             ],
