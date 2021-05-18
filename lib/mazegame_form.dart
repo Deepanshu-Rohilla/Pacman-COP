@@ -49,9 +49,9 @@ class _MazeGameFormState extends State<MazeGameForm> {
                         color: Colors.white,
                       ),),
                     ListTile(
-                      title: const Text('1 (Easy)'),
+                      title: const Text('0 (Easy)'),
                       leading: Radio(
-                        value: 1,
+                        value: 0,
                         groupValue: numberOfGhosts,
                         onChanged: (int value) {
                           setState(() {
@@ -61,9 +61,9 @@ class _MazeGameFormState extends State<MazeGameForm> {
                       ),
                     ),
                     ListTile(
-                      title: const Text('2 (Medium)'),
+                      title: const Text('1 (Medium)'),
                       leading: Radio(
-                        value: 2,
+                        value: 1,
                         groupValue: numberOfGhosts,
                         onChanged: (int value) {
                           setState(() {

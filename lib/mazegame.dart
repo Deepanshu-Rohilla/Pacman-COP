@@ -21,7 +21,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
 
   static int numberInRow = 11;
   int numberOfSquares = numberInRow * 16;
-  int playerPosition = numberInRow * 14 + 1;
+  int playerPosition = numberInRow  + 1;
   String playerDirection = 'right';
   String playerImage = 'lib/images/pacman.png';
   List<int> positionOfMovables = [ numberInRow * 2 - 2, numberInRow * 9 - 1, numberInRow * 11 - 2];
@@ -146,7 +146,13 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return AlertDialog(
+          return WillPopScope(
+              onWillPop: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                return Future.value(false);
+              },
+          child: AlertDialog(
             title: Center(child:Text( win ? 'You won! and the time taken is $score seconds' : 'You lose! and the time taken is $score seconds')),
             content: Text("Your Score : " + (score).toString()),
             actions: [
@@ -171,7 +177,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
                 ),
               )
             ],
-          );
+          ));
         });
 
   }
@@ -179,7 +185,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
   void resetGame() {
     audioInGame.loop('pacman_beginning.wav');
     setState(() {
-      playerPosition = numberInRow * 14 + 1;
+      playerPosition = numberInRow + 1;
       for(int i=0;i<widget.numberOfGhosts;i++){
         if(i==0){
           positionOfMovables[0] = numberInRow * 2 - 2;
@@ -235,7 +241,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
         default:
           return Movables(playerImage);
       }
-    } else if (index == positionOfMovables[0]) {
+    } else if (index == positionOfMovables[0] && widget.numberOfGhosts>0) {
       return Movables(imagePath[0]);
     } else if (index == positionOfMovables[1] && widget.numberOfGhosts>1) {
       return Movables(imagePath[1]);
@@ -245,12 +251,6 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
       return MazeCell(
         innerColor: Colors.blue[900],
         outerColor: Colors.blue[800],
-        // child: Text(index.toString()),
-      );
-    } else if (preGame) {
-      return Path(
-        innerColor: Colors.yellow,
-        outerColor: Colors.black,
         // child: Text(index.toString()),
       );
     } else if (index==destination){

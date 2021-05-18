@@ -145,7 +145,13 @@ class _GameScreenState extends State<GameScreen> {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return AlertDialog(
+          return WillPopScope(
+              onWillPop: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                return Future.value(false);
+              },
+          child: AlertDialog(
             title: Center(child: Text("Game Over!")),
             content: Text("Your Score : " + (score).toString()),
             actions: [
@@ -170,7 +176,7 @@ class _GameScreenState extends State<GameScreen> {
                 ),
               )
             ],
-          );
+          ));
         });
   }
 
