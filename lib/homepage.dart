@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pacman/add_maze.dart';
 import 'package:pacman/developers.dart';
 import 'package:pacman/gamescreen.dart';
 
@@ -62,20 +63,19 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-//          GestureDetector(
-//            child: Text('How to play',
-//              style: GoogleFonts.caveat(
-//                textStyle: Theme.of(context).textTheme.headline4,
-//                fontSize: 50,
-//                fontWeight: FontWeight.w700,
-//                fontStyle: FontStyle.italic,
-//                color: Colors.white,
-//              ),),
-//            onTap: (){
-//              Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen(0,0,0,0
-//              ,0)));
-//            },
-//          ),
+          GestureDetector(
+            child: Text('Add maze',
+              style: GoogleFonts.caveat(
+                textStyle: Theme.of(context).textTheme.headline4,
+                fontSize: 50,
+                fontWeight: FontWeight.w700,
+                fontStyle: FontStyle.italic,
+                color: Colors.white,
+              ),),
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => AddMaze()));
+            },
+          ),
           GestureDetector(
             child: Text('About the developers',
               style: GoogleFonts.caveat(
