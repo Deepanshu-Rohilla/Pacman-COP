@@ -2,31 +2,17 @@ import 'package:flutter/foundation.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final title = 'WebSocket Demo';
-    return MaterialApp(
-      title: title,
-      home: MyHomePage(
-        title: title,
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
+class SocketWidget extends StatefulWidget {
   final String title;
 
-  MyHomePage({@required this.title,});
+  SocketWidget({@required this.title,});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _SocketWidgetState createState() => _SocketWidgetState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SocketWidgetState extends State<SocketWidget> {
   final TextEditingController _controller = TextEditingController();
   final _channel = IOWebSocketChannel.connect('wss://echo.websocket.org');
   List<int> l = [1,2,3,4,5,6];
