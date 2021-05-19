@@ -4,6 +4,12 @@ import 'homepage.dart';
 List<int> scores = [];
 List<bool> gamePlayed = [];
 
+List<List<int>> = [
+  [1,2,3], // Add like this
+
+
+];
+
 void main() {
   runApp(MyApp());
 }
