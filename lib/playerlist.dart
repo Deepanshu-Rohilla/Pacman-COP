@@ -8,7 +8,8 @@ class PlayerList extends StatefulWidget {
   int movementSpeed;
   int numberOfPlayers;
   bool pacman;
-  PlayerList(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers, this.pacman);
+  int mazeDiffculty;
+  PlayerList(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers, this.pacman, this.mazeDiffculty);
   @override
   _PlayerListState createState() => _PlayerListState();
 }
@@ -32,7 +33,7 @@ class _PlayerListState extends State<PlayerList> {
                 setState(() {
                   gamePlayed[index]=true;
                 });
-                Navigator.push(context, MaterialPageRoute(builder: (context) => widget.pacman ? GameScreen(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers,index) : MazeGameScreen(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers,index)));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => widget.pacman ? GameScreen(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers,index,widget.mazeDiffculty) : MazeGameScreen(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers,index,widget.mazeDiffculty)));
               },
             );
           }),

@@ -72,7 +72,8 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
               ),),
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen(0,0,0,0)));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen(0,0,0,0
+              ,0)));
             },
           ),
           GestureDetector(

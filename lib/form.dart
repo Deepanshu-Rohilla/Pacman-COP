@@ -21,6 +21,7 @@ class _GameFormState extends State<GameForm> {
   int numberOfGhosts=-1;
   int movementSpeed=-1;
   int numberOfPlayers=1;
+  int mazeDifficulty=-1;
   bool validInteger=true;
   @override
   Widget build(BuildContext context) {
@@ -136,6 +137,50 @@ class _GameFormState extends State<GameForm> {
                           },
                         ),
                       ),
+                      Text('Choose maze difficulty',
+                        style: GoogleFonts.caveat(
+                          textStyle: Theme.of(context).textTheme.headline4,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.white,
+                        ),),
+                      ListTile(
+                        title: const Text('Easy'),
+                        leading: Radio(
+                          value: 1,
+                          groupValue: mazeDifficulty,
+                          onChanged: (int value) {
+                            setState(() {
+                              mazeDifficulty = value;
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        title: const Text('Medium'),
+                        leading: Radio(
+                          value: 2,
+                          groupValue: mazeDifficulty,
+                          onChanged: (int value) {
+                            setState(() {
+                              mazeDifficulty = value;
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        title: const Text('Hard'),
+                        leading: Radio(
+                          value: 3,
+                          groupValue: mazeDifficulty,
+                          onChanged: (int value) {
+                            setState(() {
+                              mazeDifficulty = value;
+                            });
+                          },
+                        ),
+                      ),
                       Text('Enter the number of players',
                         style: GoogleFonts.caveat(
                           textStyle: Theme.of(context).textTheme.headline4,
@@ -223,11 +268,11 @@ class _GameFormState extends State<GameForm> {
                                   gamePlayed.add(false);
                                 }
                                 if(numberOfPlayers>1){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(numberOfGhosts, movementSpeed, numberOfPlayers, widget.pacman)));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(numberOfGhosts, movementSpeed, numberOfPlayers, widget.pacman,mazeDifficulty)));
                                 }
                                 else{
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => widget.pacman ?  GameScreen(numberOfGhosts, movementSpeed,numberOfPlayers,0)
-                                      : MazeGameScreen(numberOfGhosts,movementSpeed,numberOfPlayers,0)
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => widget.pacman ?  GameScreen(numberOfGhosts, movementSpeed,numberOfPlayers,0,mazeDifficulty)
+                                      : MazeGameScreen(numberOfGhosts,movementSpeed,numberOfPlayers,0,mazeDifficulty)
                                   )
                                   );
                                 }

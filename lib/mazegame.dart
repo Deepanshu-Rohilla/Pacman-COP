@@ -18,7 +18,8 @@ class MazeGameScreen extends StatefulWidget {
   int movementSpeed;
   int numberOfPlayers;
   int playerNumber;
-  MazeGameScreen(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers, this.playerNumber);
+  int mazeDifficulty;
+  MazeGameScreen(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers, this.playerNumber,this.mazeDifficulty);
   @override
   _MazeGameScreenState createState() => _MazeGameScreenState();
 }
@@ -194,7 +195,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
                   Navigator.pop(context);
                   Navigator.pop(context);
                   if(widget.numberOfPlayers>1){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers, false)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers, false,widget.mazeDifficulty)));
                   }
                   else{
                     Navigator.push(context, MaterialPageRoute(builder: (context) => GameForm(false)));
