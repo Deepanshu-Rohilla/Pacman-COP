@@ -18,21 +18,56 @@
 2. ![](lib/Maze_2.jpeg)
 3. ![](lib/Maze_3.jpeg)
 
+## Directory Layout
 
-## Current Status of the app:
-1. Offline single player/multiplayer working.
-2. Map generation choses random map according to the difficulty from the list of maps.
-3. Current feature allows various difficulty options according to number of ghosts, map difficulty and movement speed of ghost.
-4. We have added the various sound effects of the pacman game.
-5. The game has both offline and online features.
+```go
+ ShareACab
+   +--- README, LICENSE // basic information
+   +--- assets  // contains all assets like images for project
+   |
+   +--- lib
+        +--- images // Containes images of various characters
+            +--- cyan.png
+            +--- finish.png
+            +--- pacman.png
+            +--- player.png
+            +--- red.png
+            +--- yellow.png
+        +--- developers.dart // Opens the pags of about the developers
+        +--- form.dart // Opens the form that is required before the game
+        +--- gamescreen.dart // Opens the pacman game
+        +--- generated_plugin_registrant.dart // Auto-generated file
+        +--- homepage.dart // Contains the homepage
+        +--- main.dart 
+        +--- maze_objects.dart // Contains the classes required for maze
+        +--- mazegame.dart // Opens the maze game
+        +--- movables.dart // Contains the classes of movables
+        +--- online_game_screen.dart // The firebase screen
+        +--- playerlist.dart // Contains information about players when playing multiplayer game
+        +--- sockets.dart // The socket screen
+        +--- status.txt // The status of app
+        
+   +--- firebase files 
+   +--- pubspec.yaml
+   +--- miscellaneous
+   +--- etc
+```
+
+## What's working:
+
+
+- [x] Offline single player/multiplayer working.
+- [x] Map generation choses random map according to the difficulty from the list of maps.
+- [x] Current feature allows various difficulty options according to number of ghosts, map difficulty and movement speed of ghost.
+- [x] We have added the various sound effects of the pacman game.
 
 Future aspects:
-1. Online intergration using socket or firebase.
-2. Making size of map to be variable.
-3. Special balls to increase life (in the game).
-4. Random maze generation.
-5. Allowing user to manually make a map.
-6. Allowing users to click pictures and use their face instead of pacman.
+ - Online intergration using socket or firebase.
+ - Making size of map to be variable.
+ - Special balls to increase life (in the game).
+ - Random maze generation.
+ - Allowing user to manually make a map.
+ -  Allowing users to click pictures and use their face instead of pacman.
 
 Note:
 1. The logic for socket initialisation is given in `sockets.dart` file.
