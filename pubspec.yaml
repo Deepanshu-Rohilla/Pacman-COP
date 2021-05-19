@@ -31,6 +31,8 @@ dependencies:
   audioplayers: ^0.17.0
   google_fonts:
   web_socket_channel:
+  firebase_database:
+  firebase_core:
 dev_dependencies:
   flutter_test:
     sdk: flutter
