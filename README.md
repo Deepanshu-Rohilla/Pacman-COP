@@ -1,5 +1,5 @@
 ## App Preview 
-![](lib/game_promo.gif)
+![](img_gif/game_promo.gif)
 
 
 ## How to play Pacman
@@ -18,7 +18,10 @@
 2. ![](img_gif/Maze_2.jpg)
 3. ![](img_gif/Maze_3.jpg)
 
+
+<br> <br> <br>
 There is also an option to make a custom maze
+<br> <br> <br>
 ![](img_gif/maze_generation.gif)
 
 
