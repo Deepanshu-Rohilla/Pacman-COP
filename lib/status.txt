@@ -10,3 +10,8 @@ Future aspects:
 4. Random maze generation.
 5. Allowing user to manually make a map.
 6. Allowing users to click pictures and use their face instead of pacman.
+
+Note:
+1. The logic for socket initialisation is given in `sockets.dart` file.
+2. The firebase integration is also done and the initialisation logic is present is `online_game_screen.dart` file.
+    We managed to successfully setup the npm server and communicate to it at the basic text level.
