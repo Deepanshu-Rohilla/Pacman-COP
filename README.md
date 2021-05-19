@@ -18,6 +18,41 @@
 2. ![](lib/Maze_2.jpeg)
 3. ![](lib/Maze_3.jpeg)
 
+## Directory Layout
+
+```go
+ ShareACab
+   +--- README, LICENSE // basic information
+   +--- assets  // contains all assets like images for project
+   |
+   +--- lib
+        +--- images // Containes images of various characters
+            +--- cyan.png
+            +--- finish.png
+            +--- pacman.png
+            +--- player.png
+            +--- red.png
+            +--- yellow.png
+        +--- developers.dart // Opens the pags of about the developers
+        +--- form.dart // Opens the form that is required before the game
+        +--- gamescreen.dart // Opens the pacman game
+        +--- generated_plugin_registrant.dart // Auto-generated file
+        +--- homepage.dart // Contains the homepage
+        +--- main.dart 
+        +--- maze_objects.dart // Contains the classes required for maze
+        +--- mazegame.dart // Opens the maze game
+        +--- movables.dart // Contains the classes of movables
+        +--- online_game_screen.dart // The firebase screen
+        +--- playerlist.dart // Contains information about players when playing multiplayer game
+        +--- sockets.dart // The socket screen
+        +--- status.txt // The status of app
+        
+   +--- firebase files 
+   +--- pubspec.yaml
+   +--- miscellaneous
+   +--- etc
+```
+
 
 ## Current Status of the app:
 1. Offline single player/multiplayer working.
