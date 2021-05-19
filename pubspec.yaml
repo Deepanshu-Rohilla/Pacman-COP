@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   audioplayers: ^0.17.0
   google_fonts:
+  web_socket_channel:
 dev_dependencies:
   flutter_test:
     sdk: flutter
