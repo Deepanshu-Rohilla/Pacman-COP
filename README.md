@@ -14,4 +14,12 @@
 
 
 ## Different Types of Mazes in game
-1.
+1. ![](lib/Maze_1.jpeg)
+2. ![](lib/Maze_2.jpeg)
+3. ![](lib/Maze_3.jpeg)
+
+## Online Sources 
+1.https://github.com/schuay/pacman
+2.https://github.com/DarkMuffinJoe/Pacman
+3.https://en.wikipedia.org/wiki/User:Dllu/Maze
+4.https://lazyfoo.net/tutorials/SDL/
