@@ -14,9 +14,12 @@
 
 
 ## Different Types of Mazes in game
-1. ![](lib/Maze_1.jpeg)
-2. ![](lib/Maze_2.jpeg)
-3. ![](lib/Maze_3.jpeg)
+1. ![](img_gif/Maze_1.jpg)
+2. ![](img_gif/Maze_2.jpg)
+3. ![](img_gif/Maze_3.jpg)
+4. ![](img_gif/img1.jpg)
+5. ![](img_gif/img2.jpg)
+6. ![](img_gif/img3.jpg)
 
 ## Directory Layout
 
