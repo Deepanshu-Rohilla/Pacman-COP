@@ -62,20 +62,20 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-          GestureDetector(
-            child: Text('How to play',
-              style: GoogleFonts.caveat(
-                textStyle: Theme.of(context).textTheme.headline4,
-                fontSize: 50,
-                fontWeight: FontWeight.w700,
-                fontStyle: FontStyle.italic,
-                color: Colors.white,
-              ),),
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen(0,0,0,0
-              ,0)));
-            },
-          ),
+//          GestureDetector(
+//            child: Text('How to play',
+//              style: GoogleFonts.caveat(
+//                textStyle: Theme.of(context).textTheme.headline4,
+//                fontSize: 50,
+//                fontWeight: FontWeight.w700,
+//                fontStyle: FontStyle.italic,
+//                color: Colors.white,
+//              ),),
+//            onTap: (){
+//              Navigator.push(context, MaterialPageRoute(builder: (context) => GameScreen(0,0,0,0
+//              ,0)));
+//            },
+//          ),
           GestureDetector(
             child: Text('About the developers',
               style: GoogleFonts.caveat(
