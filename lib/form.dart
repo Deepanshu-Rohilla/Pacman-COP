@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pacman/gamescreen.dart';
@@ -268,6 +270,7 @@ class _GameFormState extends State<GameForm> {
                                   gamePlayed.add(false);
                                 }
                                 if(numberOfPlayers>1){
+
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(numberOfGhosts, movementSpeed, numberOfPlayers, widget.pacman,mazeDifficulty)));
                                 }
                                 else{
