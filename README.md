@@ -11,3 +11,7 @@
     - Swipe down to move down.
 3. Stay away from ghosts.
 4. Eat all the food.
+
+
+## Different Types of Mazes in game
+1.
