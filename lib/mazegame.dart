@@ -47,7 +47,6 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
   bool paused = false;
   AudioPlayer advancedPlayer = new AudioPlayer();
   AudioPlayer advancedPlayer2 = new AudioPlayer();
-  AudioCache audioInGame = new AudioCache(prefix: 'assets/');
   AudioCache audioMunch = new AudioCache(prefix: 'assets/');
   AudioCache audioDeath = new AudioCache(prefix: 'assets/');
   AudioCache audioPaused = new AudioCache(prefix: 'assets/');
@@ -60,6 +59,13 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
     int maze = rand.nextInt(4);
     barriers = gameBarriers[ (widget.mazeDifficulty-1)*5+ maze];
 
+  }
+
+  @override
+  void dispose() {
+    advancedPlayer.stop();
+    advancedPlayer2.stop();
+    super.dispose();
   }
 
 
@@ -141,7 +147,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
   }
 
   void resetGame() {
-    audioInGame.loop('pacman_beginning.wav');
+//    audioInGame.loop('pacman_beginning.wav');
     setState(() {
       playerPosition = numberInRow + 1;
       for(int i=0;i<widget.numberOfGhosts;i++){
@@ -363,10 +369,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
 
   void playGame() {
     if (preGame) {
-      advancedPlayer = new AudioPlayer();
-      audioInGame = new AudioCache(fixedPlayer: advancedPlayer);
-      audioPaused = new AudioCache(fixedPlayer: advancedPlayer2);
-      audioInGame.loop('pacman_beginning.wav');
+//      audioInGame.loop('pacman_beginning.wav');
       preGame = false;
       Timer.periodic(Duration(milliseconds: 10), (timer) {
         if (paused) {
