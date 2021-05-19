@@ -63,10 +63,10 @@
 - [x] Map generation choses random map according to the difficulty from the list of maps.
 - [x] Current feature allows various difficulty options according to number of ghosts, map difficulty and movement speed of ghost.
 - [x] We have added the various sound effects of the pacman game.
+- [x] Allowing the user to create his own map.
 
 Future aspects:
  - Online intergration using socket or firebase.
- - Making size of map to be variable.
  - Special balls to increase life (in the game).
  - Random maze generation.
  - Allowing user to manually make a map.
