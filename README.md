@@ -23,6 +23,8 @@
 1. Offline single player/multiplayer working.
 2. Map generation choses random map according to the difficulty from the list of maps.
 3. Current feature allows various difficulty options according to number of ghosts, map difficulty and movement speed of ghost.
+4. We have added the various sound effects of the pacman game.
+5. The game has both offline and online features.
 
 Future aspects:
 1. Online intergration using socket or firebase.
