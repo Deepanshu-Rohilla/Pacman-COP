@@ -17,9 +17,10 @@
 1. ![](img_gif/Maze_1.jpg)
 2. ![](img_gif/Maze_2.jpg)
 3. ![](img_gif/Maze_3.jpg)
-4. ![](img_gif/img1.jpg)
-5. ![](img_gif/img2.jpg)
-6. ![](img_gif/img3.jpg)
+
+There is also an option to make a custom maze
+![](img_gif/maze_generation.gif)
+
 
 ## Directory Layout
 
