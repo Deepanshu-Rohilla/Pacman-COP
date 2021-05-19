@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pacman/add_maze.dart';
+import 'package:pacman/camera.dart';
 import 'package:pacman/developers.dart';
 import 'package:pacman/gamescreen.dart';
 
@@ -74,6 +75,19 @@ class _HomePageState extends State<HomePage> {
               ),),
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => AddMaze()));
+            },
+          ),
+          GestureDetector(
+            child: Text('Add Image',
+              style: GoogleFonts.caveat(
+                textStyle: Theme.of(context).textTheme.headline4,
+                fontSize: 50,
+                fontWeight: FontWeight.w700,
+                fontStyle: FontStyle.italic,
+                color: Colors.white,
+              ),),
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen()));
             },
           ),
           GestureDetector(

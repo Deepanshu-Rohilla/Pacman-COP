@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:audioplayers/audio_cache.dart';
@@ -29,7 +31,7 @@ class _GameScreenState extends State<GameScreen> {
   int numberOfSquares = numberInRow * 16;
   int playerPosition = numberInRow * 14 + 1;
   String playerDirection = 'right';
-  String playerImage = 'lib/images/pacman.png';
+  String playerImage =  'lib/images/pacman.png';
   List<int> positionOfMovables = [ numberInRow * 2 - 2, numberInRow * 9 - 1, numberInRow * 11 - 2];
   List<String> directionOfMovement = ['left', 'left', 'down'];
   List<String> imagePath = ['lib/images/red.png', 'lib/images/yellow.png', 'lib/images/cyan.png'];

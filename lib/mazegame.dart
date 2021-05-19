@@ -30,7 +30,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
   int numberOfSquares = numberInRow * 16;
   int playerPosition = numberInRow  + 1;
   String playerDirection = 'right';
-  String playerImage = 'lib/images/pacman.png';
+  String playerImage = 'lib/images/player.png';
   List<int> positionOfMovables = [ numberInRow * 2 - 2, numberInRow * 9 - 1, numberInRow * 11 - 2];
   List<String> directionOfMovement = ['left', 'left', 'down'];
   List<String> imagePath = ['lib/images/red.png', 'lib/images/yellow.png', 'lib/images/cyan.png'];

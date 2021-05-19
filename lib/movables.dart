@@ -8,7 +8,7 @@ class Movables extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(2),
-      child: Image.asset(imagePath),
+      child:  Image.asset(imagePath),
     );
   }
 }

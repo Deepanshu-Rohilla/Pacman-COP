@@ -33,6 +33,7 @@ dependencies:
   web_socket_channel:
   firebase_database:
   firebase_core:
+  flutter_camera_x:
 dev_dependencies:
   flutter_test:
     sdk: flutter

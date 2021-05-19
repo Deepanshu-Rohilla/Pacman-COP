@@ -3,6 +3,10 @@ import 'homepage.dart';
 
 List<int> scores = [];
 List<bool> gamePlayed = [];
+bool customImagePacman = false;
+bool customImageMaze = false;
+String customImagePacmanPath = '';
+String customImageMazePath = '';
 
 List<List<int>> gameBarriers = [
   //Easy
