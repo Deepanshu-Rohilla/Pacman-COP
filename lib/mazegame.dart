@@ -20,7 +20,7 @@ class MazeGameScreen extends StatefulWidget {
   int playerNumber;
   int mazeDifficulty;
   bool useCustomImage;
-  MazeGameScreen(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers, this.playerNumber,this.mazeDifficulty);
+  MazeGameScreen(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers, this.playerNumber,this.mazeDifficulty,this.useCustomImage);
   @override
   _MazeGameScreenState createState() => _MazeGameScreenState();
 }
@@ -173,8 +173,33 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
   }
 
   Widget generateCell(int index) {
+
     if (index == playerPosition) {
-      return Movables(playerImage);
+      switch (playerDirection) {
+        case "left":
+          return Transform.rotate(
+            angle: pi,
+            child: !widget.useCustomImage ?  Movables(playerImage) : Movables2(),
+          );
+          break;
+        case "right":
+          return  !widget.useCustomImage ?  Movables(playerImage) : Movables2();
+          break;
+        case "up":
+          return Transform.rotate(
+            angle: 3 * pi / 2,
+            child:  !widget.useCustomImage ?  Movables(playerImage) : Movables2(),
+          );
+          break;
+        case "down":
+          return Transform.rotate(
+            angle: pi / 2,
+            child: !widget.useCustomImage ?  Movables(playerImage) : Movables2(),
+          );
+          break;
+        default:
+          return Movables(playerImage);
+      }
     } else if (index == positionOfMovables[0] && widget.numberOfGhosts>0) {
       return Movables(imagePath[0]);
     } else if (index == positionOfMovables[1] && widget.numberOfGhosts>1) {

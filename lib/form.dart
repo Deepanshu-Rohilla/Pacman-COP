@@ -286,7 +286,7 @@ class _GameFormState extends State<GameForm> {
                                 }
                                 else{
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => widget.pacman ?  GameScreen(numberOfGhosts, movementSpeed,numberOfPlayers,0,mazeDifficulty,useCustomImage)
-                                      : MazeGameScreen(numberOfGhosts,movementSpeed,numberOfPlayers,0,mazeDifficulty)
+                                      : MazeGameScreen(numberOfGhosts,movementSpeed,numberOfPlayers,0,mazeDifficulty,useCustomImage)
                                   )
                                   );
                                 }

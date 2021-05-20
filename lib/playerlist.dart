@@ -34,7 +34,7 @@ class _PlayerListState extends State<PlayerList> {
                 setState(() {
                   gamePlayed[index]=true;
                 });
-                Navigator.push(context, MaterialPageRoute(builder: (context) => widget.pacman ? GameScreen(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers,index,widget.mazeDiffculty,widget.useCustomImage) : MazeGameScreen(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers,index,widget.mazeDiffculty)));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => widget.pacman ? GameScreen(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers,index,widget.mazeDiffculty,widget.useCustomImage) : MazeGameScreen(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers,index,widget.mazeDiffculty,widget.useCustomImage)));
               },
             );
           }),

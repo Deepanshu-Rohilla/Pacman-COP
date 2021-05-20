@@ -61,6 +61,7 @@ class _GameScreenState extends State<GameScreen> {
     var rand = Random();
     int maze = rand.nextInt(4);
     barriers = gameBarriers[ (widget.mazeDiffculty-1)*5+ maze];
+    widget.useCustomImage = customImagePath!='';
   }
 
   @override
@@ -181,7 +182,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Widget generateCell(int index) {
-    if (mouthClosed && index == playerPosition) {
+    if ((mouthClosed && index == playerPosition) && (!widget.useCustomImage)) {
       return Padding(
         padding: EdgeInsets.all(4),
         child: Container(
@@ -193,22 +194,22 @@ class _GameScreenState extends State<GameScreen> {
         case "left":
           return Transform.rotate(
             angle: pi,
-            child: widget.useCustomImage ?  Movables(playerImage) : Movables2(),
+            child: !widget.useCustomImage ?  Movables(playerImage) : Movables2(),
           );
           break;
         case "right":
-          return  widget.useCustomImage ?  Movables(playerImage) : Movables2();
+          return  !widget.useCustomImage ?  Movables(playerImage) : Movables2();
           break;
         case "up":
           return Transform.rotate(
             angle: 3 * pi / 2,
-            child:  widget.useCustomImage ?  Movables(playerImage) : Movables2(),
+            child:  !widget.useCustomImage ?  Movables(playerImage) : Movables2(),
           );
           break;
         case "down":
           return Transform.rotate(
             angle: pi / 2,
-            child: widget.useCustomImage ?  Movables(playerImage) : Movables2(),
+            child: !widget.useCustomImage ?  Movables(playerImage) : Movables2(),
           );
           break;
         default:
