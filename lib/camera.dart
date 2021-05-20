@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_camera_x/CameraXController.dart';
 import 'package:flutter_camera_x/flutter_cameraX.dart';
 import 'package:flutter_camera_x/CameraXDescriptor.dart';
+import 'package:pacman/main.dart';
 import 'package:pacman/preview.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -80,8 +81,9 @@ class _CameraScreenState extends State<CameraScreen> {
           icon: Icon(Icons.camera),
           onPressed: () async {
             final path = join((await getTemporaryDirectory()).path,
-                'user.png');
+                'player.png');
             await _cameraXController.takePicture(path);
+            customImageMazePath = 'player.png';
             Navigator.push(context, MaterialPageRoute(builder: (context) => PreviewImage(path)));
           },
         ),

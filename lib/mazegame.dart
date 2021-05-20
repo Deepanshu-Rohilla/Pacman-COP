@@ -173,38 +173,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
 
   Widget generateCell(int index) {
     if (index == playerPosition) {
-      return Padding(
-        padding: EdgeInsets.all(4),
-        child: Container(
-          decoration: BoxDecoration(color: Colors.yellow, shape: BoxShape.circle),
-        ),
-      );
-    } else if (index == playerPosition) {
-      switch (playerDirection) {
-        case "left":
-          return Transform.rotate(
-            angle: pi,
-            child: Movables(playerImage),
-          );
-          break;
-        case "right":
-          return Movables(playerImage);
-          break;
-        case "up":
-          return Transform.rotate(
-            angle: 3 * pi / 2,
-            child: Movables(playerImage),
-          );
-          break;
-        case "down":
-          return Transform.rotate(
-            angle: pi / 2,
-            child: Movables(playerImage),
-          );
-          break;
-        default:
-          return Movables(playerImage);
-      }
+      return Movables(playerImage);
     } else if (index == positionOfMovables[0] && widget.numberOfGhosts>0) {
       return Movables(imagePath[0]);
     } else if (index == positionOfMovables[1] && widget.numberOfGhosts>1) {

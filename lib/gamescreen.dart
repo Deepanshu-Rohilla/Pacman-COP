@@ -32,6 +32,7 @@ class _GameScreenState extends State<GameScreen> {
   int playerPosition = numberInRow * 14 + 1;
   String playerDirection = 'right';
   String playerImage =  'lib/images/pacman.png';
+  bool pacmanUsed;
   List<int> positionOfMovables = [ numberInRow * 2 - 2, numberInRow * 9 - 1, numberInRow * 11 - 2];
   List<String> directionOfMovement = ['left', 'left', 'down'];
   List<String> imagePath = ['lib/images/red.png', 'lib/images/yellow.png', 'lib/images/cyan.png'];
@@ -60,6 +61,7 @@ class _GameScreenState extends State<GameScreen> {
     var rand = Random();
     int maze = rand.nextInt(4);
     barriers = gameBarriers[ (widget.mazeDiffculty-1)*5+ maze];
+    pacmanUsed = playerImage== 'lib/images/player.png';
 
   }
 
@@ -181,7 +183,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Widget generateCell(int index) {
-    if (mouthClosed && index == playerPosition) {
+    if (mouthClosed && index == playerPosition && pacmanUsed) {
       return Padding(
         padding: EdgeInsets.all(4),
         child: Container(
