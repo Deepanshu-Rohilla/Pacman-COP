@@ -390,7 +390,7 @@ class _GameScreenState extends State<GameScreen> {
         } else {
           advancedPlayer.resume();
         }
-        if (positionOfMovables.sublist(0,widget.numberOfGhosts).contains(playerPosition)) {
+        if (foodAvailable.length==0 || positionOfMovables.sublist(0,widget.numberOfGhosts).contains(playerPosition)) {
           advancedPlayer.stop();
           audioDeath.play('pacman_death.wav');
           setState(() {
