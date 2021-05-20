@@ -20,19 +20,18 @@
 
 ## GIFs describing the features
 
-
-<br> <br> <br>
 - There is also an option to make a custom maze
 <br> <br> <br>
 ![](img_gif/maze_generation.gif)
 - An option to add custom image in place of pacman is also given
+<br> <br> <br>
 ![](img_gif/custom_image.gif)
 
 
 ## Directory Layout
 
 ```go
- ShareACab
+ Pacman
    +--- README, LICENSE // basic information
    +--- assets  // contains all assets like images for project
    |
@@ -44,6 +43,8 @@
             +--- player.png
             +--- red.png
             +--- yellow.png
+        +--- add_maze.dart // Opens the screen of custom maze generation.
+        +--- camera.dart // Opens the file containing camera.
         +--- developers.dart // Opens the pags of about the developers
         +--- form.dart // Opens the form that is required before the game
         +--- gamescreen.dart // Opens the pacman game
@@ -55,6 +56,7 @@
         +--- movables.dart // Contains the classes of movables
         +--- online_game_screen.dart // The firebase screen
         +--- playerlist.dart // Contains information about players when playing multiplayer game
+        +--- preview.dart // Opens the file that previews the image
         +--- sockets.dart // The socket screen
         +--- status.txt // The status of app
         
@@ -76,8 +78,8 @@
 
 Future aspects:
  - Online intergration using socket or firebase.
+ - Multiple storage of images.
  - Special balls to increase life (in the game).
- - Random maze generation.
 
 Note:
 1. The logic for socket initialisation is given in `sockets.dart` file.
