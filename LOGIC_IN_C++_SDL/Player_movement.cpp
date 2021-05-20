@@ -43,6 +43,7 @@ bool contains(int key){
         if(*it==key){
             return true;
         }
+      it++;
     }
     return false;
 }
