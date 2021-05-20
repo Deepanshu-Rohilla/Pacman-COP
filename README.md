@@ -68,13 +68,12 @@ There is also an option to make a custom maze
 - [x] Current feature allows various difficulty options according to number of ghosts, map difficulty and movement speed of ghost.
 - [x] We have added the various sound effects of the pacman game.
 - [x] Allowing the user to create his own map.
+- [x] Allowing users to click pictures and use their face instead of pacman.
 
 Future aspects:
  - Online intergration using socket or firebase.
  - Special balls to increase life (in the game).
  - Random maze generation.
- - Allowing user to manually make a map.
- -  Allowing users to click pictures and use their face instead of pacman.
 
 Note:
 1. The logic for socket initialisation is given in `sockets.dart` file.
