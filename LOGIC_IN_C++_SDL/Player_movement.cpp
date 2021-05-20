@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include "pacman.h";
 using namespace std;
 
 int numberInRow = 11;
@@ -60,22 +61,22 @@ void movePlayer(){
     switch (dir[playerDirection]) {
       case 0:
         if (!contains(playerPosition - 1)) {
-          setState(playerPosition--);
+          playerPosition--;
         }
         break;
       case 1:
         if (!contains(playerPosition + 1)) {
-          setState(playerPosition++);
+          playerPosition++;
         }
         break;
       case 2:
         if (!contains(playerPosition - numberInRow)) {
-          setState(playerPosition -= numberInRow);
+          playerPosition -= numberInRow;
         }
         break;
       case 3:
         if (!contains(playerPosition + numberInRow)) {
-          setState( playerPosition += numberInRow);
+          playerPosition += numberInRow;
         }
         break;
     }
