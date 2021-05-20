@@ -81,9 +81,9 @@ class _CameraScreenState extends State<CameraScreen> {
           icon: Icon(Icons.camera),
           onPressed: () async {
             final path = join((await getTemporaryDirectory()).path,
-                'player.png');
+                'user.png');
             await _cameraXController.takePicture(path);
-            customImageMazePath = 'player.png';
+            customImagePath = path;
             Navigator.push(context, MaterialPageRoute(builder: (context) => PreviewImage(path)));
           },
         ),

@@ -25,6 +25,7 @@ class _GameFormState extends State<GameForm> {
   int numberOfPlayers=1;
   int mazeDifficulty=-1;
   bool validInteger=true;
+  bool useCustomImage = false;
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
@@ -183,6 +184,16 @@ class _GameFormState extends State<GameForm> {
                           },
                         ),
                       ),
+                      CheckboxListTile(
+                        title: Text('Use custom image (Default: Pacman)'),
+                        value: useCustomImage,
+                        onChanged: (_) {
+                          setState(() {
+                            useCustomImage = !useCustomImage;
+                          });
+                        },
+                      ),
+
                       Text('Enter the number of players',
                         style: GoogleFonts.caveat(
                           textStyle: Theme.of(context).textTheme.headline4,
@@ -271,10 +282,10 @@ class _GameFormState extends State<GameForm> {
                                 }
                                 if(numberOfPlayers>1){
 
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(numberOfGhosts, movementSpeed, numberOfPlayers, widget.pacman,mazeDifficulty)));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(numberOfGhosts, movementSpeed, numberOfPlayers, widget.pacman,mazeDifficulty,useCustomImage)));
                                 }
                                 else{
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => widget.pacman ?  GameScreen(numberOfGhosts, movementSpeed,numberOfPlayers,0,mazeDifficulty)
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => widget.pacman ?  GameScreen(numberOfGhosts, movementSpeed,numberOfPlayers,0,mazeDifficulty,useCustomImage)
                                       : MazeGameScreen(numberOfGhosts,movementSpeed,numberOfPlayers,0,mazeDifficulty)
                                   )
                                   );

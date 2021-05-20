@@ -32,7 +32,7 @@ class _PreviewImageState extends State<PreviewImage> {
 
               RaisedButton(
                 onPressed: () {
-                  customImagePacman = true;
+                  customImage = true;
                   Navigator.pop(context);
                   Navigator.pop(context);
                   Navigator.push(context, MaterialPageRoute(builder: (context) => GameForm(true)));
@@ -57,7 +57,7 @@ class _PreviewImageState extends State<PreviewImage> {
               ),
               RaisedButton(
                 onPressed: () {
-                  customImageMaze = true;
+                  customImage = true;
                   Navigator.pop(context);
                   Navigator.pop(context);
                   Navigator.push(context, MaterialPageRoute(builder: (context) => GameForm(false)));

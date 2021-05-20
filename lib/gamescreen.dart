@@ -20,7 +20,8 @@ class GameScreen extends StatefulWidget {
   int numberOfPlayers;
   int playerNumber;
   int mazeDiffculty;
-  GameScreen(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers, this.playerNumber,this.mazeDiffculty);
+  bool useCustomImage;
+  GameScreen(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers, this.playerNumber,this.mazeDiffculty,this.useCustomImage);
   @override
   _GameScreenState createState() => _GameScreenState();
 }
@@ -32,7 +33,6 @@ class _GameScreenState extends State<GameScreen> {
   int playerPosition = numberInRow * 14 + 1;
   String playerDirection = 'right';
   String playerImage =  'lib/images/pacman.png';
-  bool pacmanUsed;
   List<int> positionOfMovables = [ numberInRow * 2 - 2, numberInRow * 9 - 1, numberInRow * 11 - 2];
   List<String> directionOfMovement = ['left', 'left', 'down'];
   List<String> imagePath = ['lib/images/red.png', 'lib/images/yellow.png', 'lib/images/cyan.png'];
@@ -61,8 +61,6 @@ class _GameScreenState extends State<GameScreen> {
     var rand = Random();
     int maze = rand.nextInt(4);
     barriers = gameBarriers[ (widget.mazeDiffculty-1)*5+ maze];
-    pacmanUsed = playerImage== 'lib/images/player.png';
-
   }
 
   @override
@@ -119,7 +117,7 @@ class _GameScreenState extends State<GameScreen> {
                   Navigator.pop(context);
                   Navigator.pop(context);
                   if(widget.numberOfPlayers>1){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers, true,widget.mazeDiffculty)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers, true,widget.mazeDiffculty,widget.useCustomImage)));
                   }
                   else{
                     Navigator.push(context, MaterialPageRoute(builder: (context) => GameForm(true)));
@@ -183,7 +181,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Widget generateCell(int index) {
-    if (mouthClosed && index == playerPosition && pacmanUsed) {
+    if (mouthClosed && index == playerPosition) {
       return Padding(
         padding: EdgeInsets.all(4),
         child: Container(
@@ -195,22 +193,22 @@ class _GameScreenState extends State<GameScreen> {
         case "left":
           return Transform.rotate(
             angle: pi,
-            child: Movables(playerImage),
+            child: widget.useCustomImage ?  Movables(playerImage) : Movables2(),
           );
           break;
         case "right":
-          return Movables(playerImage);
+          return  widget.useCustomImage ?  Movables(playerImage) : Movables2();
           break;
         case "up":
           return Transform.rotate(
             angle: 3 * pi / 2,
-            child: Movables(playerImage),
+            child:  widget.useCustomImage ?  Movables(playerImage) : Movables2(),
           );
           break;
         case "down":
           return Transform.rotate(
             angle: pi / 2,
-            child: Movables(playerImage),
+            child: widget.useCustomImage ?  Movables(playerImage) : Movables2(),
           );
           break;
         default:
@@ -390,13 +388,21 @@ class _GameScreenState extends State<GameScreen> {
         } else {
           advancedPlayer.resume();
         }
-        if (foodAvailable.length==0 || positionOfMovables.sublist(0,widget.numberOfGhosts).contains(playerPosition)) {
+        if (positionOfMovables.sublist(0,widget.numberOfGhosts).contains(playerPosition)) {
           advancedPlayer.stop();
           audioDeath.play('pacman_death.wav');
           setState(() {
             playerPosition = -1;
           });
           gameOverDialog();
+        }
+        else{
+          if(foodAvailable.length==0){
+            setState(() {
+              playerPosition = -1;
+            });
+            gameOverDialog();
+          }
         }
       });
       switch(widget.movementSpeed){
