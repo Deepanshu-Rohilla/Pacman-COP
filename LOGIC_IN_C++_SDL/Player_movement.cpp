@@ -8,6 +8,7 @@ int playerPosition = numberInRow  + 1;
 string playerDirection = 'right';
 unordered_map<string,int>dir={{"left",0},{"right",1},{"up",2},{"down",3}};
 //mazeDifficulty ={1,2,3};
+int maze;
 
 vector<list<int>> gameBarriers {
   //Easy
@@ -43,19 +44,10 @@ bool contains(int key){
         if(*it==key){
             return true;
         }
-      it++;
+        it++;
     }
     return false;
 }
-
-
-int printRandoms(int lower, int upper){
-
-    int num = (rand() % (upper - lower + 1)) + lower;
-    return num;
-        
-}
-
 
 
 void movePlayer(){
@@ -86,8 +78,7 @@ void movePlayer(){
 }
 int main (){
 
-   maze=printRandoms(0,4);
-  movePlayer();
+   maze=Random(0,4);
 
     return 0;
 }
