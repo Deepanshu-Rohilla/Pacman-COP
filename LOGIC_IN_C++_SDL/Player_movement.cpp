@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "pacman.h";
+#include "Random.h";
 using namespace std;
 
 int numberInRow = 11;
