@@ -44,9 +44,11 @@ bool contains(int key){
         if(*it==key){
             return true;
         }
+        it++;
     }
     return false;
 }
+
 
 
 void moveGhost(int index){
@@ -54,99 +56,99 @@ void moveGhost(int index){
     switch (dir[direction]) {
       case 0:
         if (!contains(positionOfMovables[index] - 1)) {
-          setState(() {
+     
             positionOfMovables[index]--;
-          });
+   
         } else {
           if (!contains(positionOfMovables[index] + numberInRow)) {
-            setState(() {
+         
               positionOfMovables[index] += numberInRow;
               directionOfMovement[index] = "down";
-            });
+         
           } else if (!contains(positionOfMovables[index] + 1)) {
-            setState(() {
+     
               positionOfMovables[index]++;
               directionOfMovement[index] = "right";
-            });
+       
           } else if (!contains(positionOfMovables[index] - numberInRow)) {
-            setState(() {
+            
               positionOfMovables[index] -= numberInRow;
               directionOfMovement[index] = "up";
-            });
+         
           }
         }
         break;
       case 1:
         if (!contains(positionOfMovables[index] + 1)) {
-          setState(() {
+       
             positionOfMovables[index]++;
-          });
+        
         } else {
           if (!contains(positionOfMovables[index] - numberInRow)) {
-            setState(() {
+           
               positionOfMovables[index] -= numberInRow;
               directionOfMovement[index] = "up";
-            });
+       
           } else if (!contains(positionOfMovables[index] + numberInRow)) {
-            setState(() {
+       
               positionOfMovables[index] += numberInRow;
               directionOfMovement[index] = "down";
-            });
+         
           } else if (!contains(positionOfMovables[index] - 1)) {
-            setState(() {
+           
               positionOfMovables[index]--;
               directionOfMovement[index] = "left";
-            });
+           
           }
         }
         break;
       case 2:
         if (!contains(positionOfMovables[index] - numberInRow)) {
-          setState(() {
+       
             positionOfMovables[index] -= numberInRow;
             directionOfMovement[index] = "up";
-          });
+          
         } else {
           if (!contains(positionOfMovables[index] + 1)) {
-            setState(() {
+ 
               positionOfMovables[index]++;
               directionOfMovement[index] = "right";
-            });
+      
           } else if (!contains(positionOfMovables[index] - 1)) {
-            setState(() {
+       
               positionOfMovables[index]--;
-              directionOfMovement[index] = "left";
-            });
+              directionOfMovement[index] = "left"
+       
           } else if (!contains(positionOfMovables[index] + numberInRow)) {
-            setState(() {
+      
               positionOfMovables[index] += numberInRow;
               directionOfMovement[index] = "down";
-            });
+        
           }
         }
         break;
       case 3:
         if (!contains(positionOfMovables[index] + numberInRow)) {
-          setState(() {
+        
             positionOfMovables[index] += numberInRow;
             directionOfMovement[index] = "down";
-          });
+        
         } else {
           if (!contains(positionOfMovables[index] - 1)) {
-            setState(() {
+            
               positionOfMovables[index]--;
               directionOfMovement[index] = "left";
-            });
+       
           } else if (!contains(positionOfMovables[index] + 1)) {
-            setState(() {
+            
               positionOfMovables[index]++;
               directionOfMovement[index] = "right";
-            });
+        
           } else if (!contains(positionOfMovables[index] - numberInRow)) {
-            setState(() {
+         
               positionOfMovables[index] -= numberInRow;
               directionOfMovement[index] = "up";
-            });
+         
           }
         }
         break;
