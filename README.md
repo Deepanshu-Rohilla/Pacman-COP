@@ -20,12 +20,11 @@
 
 ## GIFs describing the features
 
-
-<br> <br> <br>
 - There is also an option to make a custom maze
 <br> <br> <br>
 ![](img_gif/maze_generation.gif)
 - An option to add custom image in place of pacman is also given
+<br> <br> <br>
 ![](img_gif/custom_image.gif)
 
 
