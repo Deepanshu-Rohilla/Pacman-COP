@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'maze_objects.dart';
@@ -19,10 +21,8 @@ class _SimulationScreenState extends State<SimulationScreen> {
   String playerImage = 'lib/images/player.png';
   String imageDestination = 'lib/images/finish.png';
   List<int> path;
-
-  void findPath(){
-    
-  }
+  List<int> output = [0, 1, 2, 13, 14, 15, 4, 4, 15, 16, 17, 6, 7, 7, 18, 29, 40, 51, 62, 73, 84, 95, 106, 105, 104, 103, 102, 101, 100];
+  int i=0;
 
 
 
@@ -55,7 +55,14 @@ class _SimulationScreenState extends State<SimulationScreen> {
   }
 
   void startSimulation(){
+    Timer.periodic(Duration(milliseconds: 100), (timer) {
+      setState(() {
+        playerPosition = output[i];
+        i++;
+      });
 
+
+    });
   }
 
   @override
