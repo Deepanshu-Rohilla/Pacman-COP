@@ -2,6 +2,7 @@
 using namespace std;
 int dist[1001][1001];
 int N,M;
+int stones_num,barriers_num;
 int visited[1001][1001];
 int dx []={-1,0,1,0};
 int dy [] ={0,1,0,-1};
@@ -34,7 +35,6 @@ void list_append(list<int>&list1,list<int>&final_path){
   }
 
 }
-
 
 void possible_permutation(vector<int>&stones,int n,int src, int dest){
 
@@ -74,8 +74,6 @@ void possible_permutation(vector<int>&stones,int n,int src, int dest){
 }
 // Generating permutation using Heap Algorithm
 void heapPermutation(vector<int>&stones, int size, int n,int src,int dest){
-	// if size becomes 1 then prints the obtained
-	// permutation
 	if (size == 1) {
 		possible_permutation(stones, n,src,dest);
 		return;
@@ -84,13 +82,9 @@ void heapPermutation(vector<int>&stones, int size, int n,int src,int dest){
 	for (int i = 0; i < size; i++) {
 		heapPermutation(stones, size - 1, n,src,dest);
 
-		// if size is odd, swap 0th i.e (first) and
-		// (size-1)th i.e (last) element
+
 		if (size % 2 == 1)
 			swap(stones[0], stones[size - 1]);
-
-		// If size is even, swap ith and
-		// (size-1)th i.e (last) element
 		else
 			swap(stones[i], stones[size - 1]);
 	}
@@ -102,43 +96,6 @@ void Find_Smallest_Path_from_src_dest(vector<int>&stones,int src,int dest){
 
     heapPermutation(stones, stones.size(), stones.size(),src,dest);
 
-    // do{
-    //     int sum=0;
-    //     for(int i=0;i<stones.size();i++){
-    //         int idx;
-
-    //          if(i==0){
-    //             idx= Search(src, stones[i]);
-    //             // cout<<idx<<"\n";
-    //            sum+=shortest_path[idx][{src,stones[i]}].size()-1;
-    //            // cout<<shortest_path[idx][{src,stones[i]}].size()<<" ";
-
-    //          }
-    //          else if(i==stones.size()-1){
-    //             idx= Search(stones[i-1],stones[i]);
-    //             //cout<<idx<<"\n";
-    //             sum+=shortest_path[idx][{stones[i-1],stones[i]}].size()-1;
-    //             //cout<<shortest_path[idx][{stones[i-1],stones[i]}].size()<<" ";
-    //             idx= Search(stones[i],dest);
-    //             // cout<<idx<<"\n";
-    //             sum+=shortest_path[idx][{stones[i],dest}].size()-1;
-    //             //cout<<shortest_path[idx][{stones[i],dest}].size()<<" ";
-    //          }else{
-    //             idx= Search(stones[i-1],stones[i]);
-    //             sum+=shortest_path[idx][{stones[i-1],stones[i]}].size()-1;
-    //             //cout<<shortest_path[idx][{stones[i-1],stones[i]}].size()<<" ";
-    //          }
-    //          //cout<<sum<<"\n";
-    //     }
-    //    // cout<<"\n";
-    //     shortest_path_sum_temp[stones]=sum;
-    //     if(minimum_path_distance>sum){
-    //         minimum_path_distance=sum;
-    //     }
-
-    // }while(next_permutation(stones.begin(),stones.end()));
-
-    
     
     auto it=shortest_path_sum_temp.begin();
     //cout<<minimum_path_distance<<"\n";
@@ -218,12 +175,25 @@ void BFS(int src, int srcX, int srcY,int dest,vector<vector<int>>&maze){
 
 int main(){
 
- cin>>N>>M;
+  int src;
+  int dest;
+  cin>>N>>M;
+  cin>>barriers_num>>stones_num;
+  cin>>src>>dest;
+  vector<int>barriers;
+  vector<int>stones;
+  for(int i=0;i<barriers_num;i++){
+      int x;
+      cin>>x;
+      barriers.push_back(x);
+  }
+  for(int i=0;i<stones_num;i++){
+      int y;
+      cin>>y;
+      stones.push_back(y);
+  }
 
-  vector<int>barriers = {3,5,8};
-  vector<int>stones = {4,7};
-  int src=0;
-  int dest=100;
+
   vector<vector<int>>maze;
   for(int i=0;i<N;i++){
       vector<int>v;
@@ -297,7 +267,7 @@ while(it_!=shortest_path_sum.end()){
  for(int i=0;i<shortest_path_final.size();i++){
      auto it=shortest_path_final[i].begin();
      while(it!=shortest_path_final[i].end()){
-         cout<<*it<<" ";
+         cout<<*it<<",";
          it++;
      }
      cout<<"\n";
