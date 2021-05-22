@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'dart:math';
 
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 import 'maze_objects.dart';
 import 'movables.dart';
+import 'main.dart';
 
 class SimulationScreen extends StatefulWidget {
   @override
@@ -12,17 +16,33 @@ class SimulationScreen extends StatefulWidget {
 
 class _SimulationScreenState extends State<SimulationScreen> {
 
-  List<int> barriers = [3,5,8];
-  List<int> stones = [4,7];
+  List<int> barriers;
+  List<int> stones;
   static int numberInRow = 11;
   int numberOfSquares = numberInRow * 16;
-  int playerPosition = 0;
-  int destination=100;
+  int playerPosition;
+  int destination;
   String playerImage = 'lib/images/player.png';
   String imageDestination = 'lib/images/finish.png';
   List<int> path;
-  List<int> output = [0, 1, 2, 13, 14, 15, 4, 4, 15, 16, 17, 6, 7, 7, 18, 29, 40, 51, 62, 73, 84, 95, 106, 105, 104, 103, 102, 101, 100];
+  List<int> output;
+  AudioPlayer advancedPlayer = new AudioPlayer();
+  AudioCache audioMunch = new AudioCache(prefix: 'assets/');
+//  audioMunch.play('pacman_chomp.wav');
   int i=0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    var rand = Random();
+    int number = rand.nextInt(5);
+    print("Number is $number");
+    barriers = simulationBarriers[number];
+    stones = simulationStones[number];
+    playerPosition = simulationSource[number];
+    destination = simulationDestination[number];
+    output = shortestPath[number];
+
+  }
 
 
 
@@ -39,7 +59,8 @@ class _SimulationScreenState extends State<SimulationScreen> {
         outerColor: Colors.blue[800],
         // child: Text(index.toString()),
       );
-    } else if(stones.contains(index)){
+    }
+    else if(stones.contains(index)){
       return Path(
         innerColor: Colors.yellow,
         outerColor: Colors.black,
@@ -55,7 +76,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
   }
 
   void startSimulation(){
-    Timer.periodic(Duration(milliseconds: 100), (timer) {
+    Timer.periodic(Duration(milliseconds: 250), (timer) {
       setState(() {
         playerPosition = output[i];
         i++;
@@ -64,6 +85,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
 
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +116,22 @@ class _SimulationScreenState extends State<SimulationScreen> {
                     },
                     child: Text("START SIMULATION",
                         style: TextStyle(color: Colors.white, fontSize: 23)),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    " Path length covered : " + (i).toString(),
+                    // // (MediaQuery.of(context).size.height.toInt() * 0.0139)
+                    //     .toInt()
+                    //     .toString(),
+                    style: TextStyle(color: Colors.white, fontSize: 15),
                   ),
                 ],
               ),

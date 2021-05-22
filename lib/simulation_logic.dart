@@ -53,49 +53,49 @@ void list_append(List<int> list1, List<int> final_path){
 
 }
 
-
-void Find_Smallest_Path_from_src_dest(List<int> stones,int src,int dest){
-  stones.sort();
-// cout<<src<<" "<<dest<<"\n";
-do{
-  int sum=0;
-  for(int i=0;i<stones.length;i++){
-    int idx;
-
-    if(i==0){
-      idx= search(src, stones[i]);
-      sum+=shortest_path[idx][{src,stones[i]}].length-1;
-    }
-    else if(i==stones.length-1){
-      idx= search(stones[i-1],stones[i]);
-      sum+=shortest_path[idx][{stones[i-1],stones[i]}].length-1;
-      idx= search(stones[i],dest);
-      sum+=shortest_path[idx][{stones[i],dest}].length-1;
-    }
-    else{
-      idx= search(stones[i-1],stones[i]);
-      sum+=shortest_path[idx][{stones[i-1],stones[i]}].length-1;
-    }
-  }
-  shortest_path_sum_temp[stones]=sum;
-  if(minimum_path_distance>sum){
-  minimum_path_distance=sum;
-  }
-
-}
-while(next_permutation(stones.begin(),stones.end()));
-//  HashMap<List<int>, int> shortest_path_sum_temp;
-
-//  while(it!=shortest_path_sum_temp.end()){
 //
-//  if((it->second)==minimum_path_distance){
-//  shortest_path_sum[it->first]=minimum_path_distance;
+//void Find_Smallest_Path_from_src_dest(List<int> stones,int src,int dest){
+//  stones.sort();
+//// cout<<src<<" "<<dest<<"\n";
+//do{
+//  int sum=0;
+//  for(int i=0;i<stones.length;i++){
+//    int idx;
+//
+//    if(i==0){
+//      idx= search(src, stones[i]);
+//      sum+=shortest_path[idx][{src,stones[i]}].length-1;
+//    }
+//    else if(i==stones.length-1){
+//      idx= search(stones[i-1],stones[i]);
+//      sum+=shortest_path[idx][{stones[i-1],stones[i]}].length-1;
+//      idx= search(stones[i],dest);
+//      sum+=shortest_path[idx][{stones[i],dest}].length-1;
+//    }
+//    else{
+//      idx= search(stones[i-1],stones[i]);
+//      sum+=shortest_path[idx][{stones[i-1],stones[i]}].length-1;
+//    }
+//  }
+//  shortest_path_sum_temp[stones]=sum;
+//  if(minimum_path_distance>sum){
+//  minimum_path_distance=sum;
 //  }
 //
-//  it++;
-//  }
-
-}
+//}
+////while(next_permutation(stones.begin(),stones.end()));
+////  HashMap<List<int>, int> shortest_path_sum_temp;
+//
+////  while(it!=shortest_path_sum_temp.end()){
+////
+////  if((it->second)==minimum_path_distance){
+////  shortest_path_sum[it->first]=minimum_path_distance;
+////  }
+////
+////  it++;
+////  }
+//
+//}
 
 bool isValid(int row,int column){
 
@@ -203,7 +203,7 @@ int main(){
     }
   }
 
-  Find_Smallest_Path_from_src_dest(stones,src,dest);
+//  Find_Smallest_Path_from_src_dest(stones,src,dest);
 //  return -1;
 //  HashMap<List<int>, int> shortest_path_sum;
   Iterable<List<int>> it0 = shortest_path_sum.keys;
