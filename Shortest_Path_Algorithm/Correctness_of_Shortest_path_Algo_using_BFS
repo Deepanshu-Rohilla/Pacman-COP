@@ -1,0 +1,43 @@
+Problem Statament:
+
+Given a maze of size N*M with the cell numbers for its barriers, stones , source and destination.We have to find shortest distance from source to destination such that after finally reaching to destination , we have picked all stones.
+
+Assumption : i) There always exist a solution for this problem (i.e., it is always possible to collect all stones from maze and maze and  destination cells cannot be isolated).
+ii) Number of Stones is constant.
+
+ 
+Correcteness of Algorithms:
+
+We have to find shortest path such that one can move from source to destination by collecting all the stones present in the maze.
+
+1) Let denote source as s ,destination as d, and array of stones as s1,s2,..,s(k) where k is number of stones , then our general path will look like :-> General path  -> s----s(i)---s(j)---d i.e we have a path with starting vertex as "s" and ending vertex as "d" and in between we have some permutation of stones vertices say s(i) where 1<=i<=k.
+
+2) So, we can decompose our general path as follows :  General-Path: -> s--(s1) + (s1)---(s2)+....+ s(k)--d  (this is just an example not necessary actual shortest path )
+
+3) So, we have divided our original path into (k+1) different paths.
+
+
+4) Now to make our "General Path" to "Shortest Path" we have to minimize the length/size of eack (k+1)  paths , so that size of overall path can be minimized , so that we can obtain shortest path.
+
+5) Now at first step we  calculated the shortest path between "each pair" from the set of vertices { s, s1,..,s(i)...,s(k),..,d} by applying "BFS" on grid by taking one element of pair as source and other as destination. This is done by using function  "BFS".
+
+6) Then , we apply brute force method for calculating the minimum path length formed by path s..s(i)...d or we can say that s+permutation_of{s1,s2,..,s(i)..,s(k-1),s(k)}+d , so by obtaning the permutation of stones vertices i.e {s1,..s(k)} and taking the sum of decompose path-length which we already have from step-(5) (i.e.,the path-length of each pair) , we can calculate the path-length of general path using it. Hence we,get a minimum pathlength possible . This process takes (k)! iteration to perform and is done in program using function : i)heapPermutation ,ii)possible_permutation ,iii) Find_Smallest_Path_from_src_dest
+
+
+7) Now after getting minimum path length from source (s) to destination(d) which includes visiting of all cell where stones are present in the maze. We can combine all the decompose path length of each pair to obtain the final Shortest Path as per condition . 
+
+This is perfromed in main function using "list_append" function which is used to join each piecewise path to get final Shortest Path.
+
+Hence this method give us the shortest path as per Problem Statement.
+
+Runtime: The runtime of this algorithms will be of same order as of General BFS i.e size of graph , hence in this case size of maze i.e O(MN).
+
+Note: We have assumed that number of stones is constant , otherwise if number of stones will becomes variable then order of Algorithm would not be O(MN).
+
+
+
+
+
+
+  
+
