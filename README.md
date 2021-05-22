@@ -70,6 +70,13 @@
 ```
 
 ## Simulation output
+Following is the images of screen before and sfter simulation.
+<br> <br> <br>
+![](img_gif/sim_end.jpeg)
+<br> <br> <br>
+![](img_gif/sim_start.jpeg)
+<br> <br> <br>
+This is the output gif: 
 ![](img_gif/simulation.gif)
 
 ## What's working:
