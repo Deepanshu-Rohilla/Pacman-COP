@@ -4,6 +4,7 @@ import 'package:pacman/add_maze.dart';
 import 'package:pacman/camera.dart';
 import 'package:pacman/developers.dart';
 import 'package:pacman/simulation.dart';
+import 'package:pacman/simulation_form.dart';
 import 'form.dart';
 
 class HomePage extends StatefulWidget {
@@ -106,7 +107,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => SimulationScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SimulationForm()));
             },
           ),
           GestureDetector(

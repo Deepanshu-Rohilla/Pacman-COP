@@ -5,11 +5,14 @@ import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
+import 'homepage.dart';
 import 'maze_objects.dart';
 import 'movables.dart';
 import 'main.dart';
 
 class SimulationScreen extends StatefulWidget {
+  bool tsp;
+  SimulationScreen(this.tsp);
   @override
   _SimulationScreenState createState() => _SimulationScreenState();
 }
@@ -27,6 +30,8 @@ class _SimulationScreenState extends State<SimulationScreen> {
   List<int> output;
   AudioPlayer advancedPlayer = new AudioPlayer();
   AudioCache audioMunch = new AudioCache(prefix: 'assets/');
+  int stonesCollected;
+  bool play = true;
 //  audioMunch.play('pacman_chomp.wav');
   int i = 0;
   @override
@@ -34,13 +39,14 @@ class _SimulationScreenState extends State<SimulationScreen> {
     // TODO: implement initState
     var rand = Random();
     int number = rand.nextInt(5);
-    print("Number is $number");
     barriers = simulationBarriers[number];
     stones = simulationStones[number];
     playerPosition = simulationSource[number];
-    destination = simulationDestination[number];
-    output = shortestPath[number];
+    destination = widget.tsp ? simulationSource[number] : simulationDestination[number];
+    output = widget.tsp ? tspPath[number] : shortestPath[number];
+    stonesCollected = 0;
   }
+
 
   Widget generateCell(int index) {
     if (index == playerPosition) {
@@ -68,15 +74,20 @@ class _SimulationScreenState extends State<SimulationScreen> {
   }
 
   void startSimulation() {
-    Timer.periodic(Duration(milliseconds: 250), (timer) {
-      setState(() {
-        if (stones.contains(playerPosition)) {
-          audioMunch.play('f.wav');
-        }
-        playerPosition = output[i];
-        i++;
+    if(play){
+      Timer.periodic(Duration(milliseconds: 250), (timer) {
+        setState(() {
+          if (stones.contains(playerPosition)) {
+            audioMunch.play('f.wav');
+            stones.remove(playerPosition);
+            stonesCollected++;
+          }
+          playerPosition = output[i];
+          i++;
+        });
       });
-    });
+    }
+
   }
 
   @override
