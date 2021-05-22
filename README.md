@@ -72,11 +72,12 @@
 ## Simulation output
 Following is the images of screen before and sfter simulation.
 <br> <br> <br>
-![](img_gif/sim_end.jpeg)
+![](img_gif/sim_end.png)
 <br> <br> <br>
-![](img_gif/sim_start.jpeg)
+![](img_gif/sim_start.png)
 <br> <br> <br>
 This is the output gif: 
+<br> <br> <br>
 ![](img_gif/simulation.gif)
 
 ## What's working:
