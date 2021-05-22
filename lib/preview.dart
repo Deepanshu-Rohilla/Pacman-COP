@@ -29,15 +29,12 @@ class _PreviewImageState extends State<PreviewImage> {
             backgroundColor: Colors.black,
             title: Center(child: Image.file(File(widget.path))),
             actions: [
-
               RaisedButton(
                 onPressed: () {
                   customImage = true;
                   Navigator.pop(context);
                   Navigator.pop(context);
                   Navigator.push(context, MaterialPageRoute(builder: (context) => GameForm(true)));
-
-
                 },
                 textColor: Colors.white,
                 padding: const EdgeInsets.all(0.0),
@@ -61,8 +58,6 @@ class _PreviewImageState extends State<PreviewImage> {
                   Navigator.pop(context);
                   Navigator.pop(context);
                   Navigator.push(context, MaterialPageRoute(builder: (context) => GameForm(false)));
-
-
                 },
                 textColor: Colors.white,
                 padding: const EdgeInsets.all(0.0),

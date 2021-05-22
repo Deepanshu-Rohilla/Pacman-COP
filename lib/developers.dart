@@ -34,7 +34,6 @@ class _DevelopersState extends State<Developers> {
                 child: Text('https://github.com/Deepanshu-Rohilla/Pacman-COP'),
               )
             ],
-
           ),
         ),
       ),

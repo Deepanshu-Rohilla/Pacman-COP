@@ -11,7 +11,6 @@ class CustomData extends StatefulWidget {
 }
 
 class _CustomDataState extends State<CustomData> {
-
   final referenceDatabase = FirebaseDatabase.instance;
   final movieName = 'MovieTitle';
   final movieController = TextEditingController();
@@ -27,11 +26,11 @@ class _CustomDataState extends State<CustomData> {
               textAlign: TextAlign.center,
             ),
             TextField(
-              controller:movieController ,
+              controller: movieController,
             ),
             FlatButton(
               child: Text('Save movie'),
-              onPressed: (){
+              onPressed: () {
                 print('here');
                 ref.child('Movies').push().child(movieName).set(movieController.text).asStream();
                 print('her1e');

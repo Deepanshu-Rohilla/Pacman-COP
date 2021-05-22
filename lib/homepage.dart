@@ -19,7 +19,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Pacman'),
-
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -27,21 +26,22 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.only(left: 40, right: 40),
             child: GestureDetector(
-              child: Text('Pacman',
+              child: Text(
+                'Pacman',
 //              style: TextStyle(
 //                fontFamily: 'caveat',
 //                fontSize: 40,
 //                fontWeight: FontWeight.bold,
 //              ),
-              style: GoogleFonts.caveat(
-                textStyle: Theme.of(context).textTheme.headline4,
-                fontSize: 100,
-                fontWeight: FontWeight.w700,
-                fontStyle: FontStyle.italic,
-                color: Colors.white,
+                style: GoogleFonts.caveat(
+                  textStyle: Theme.of(context).textTheme.headline4,
+                  fontSize: 100,
+                  fontWeight: FontWeight.w700,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.white,
+                ),
               ),
-              ),
-              onTap: (){
+              onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => GameForm(true)));
               },
             ),
@@ -49,72 +49,81 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.only(left: 40, right: 40),
             child: GestureDetector(
-              child: Text('Maze Game',
-                  style: GoogleFonts.caveat(
-                    textStyle: Theme.of(context).textTheme.headline4,
-                    fontSize: 60,
-                    fontWeight: FontWeight.w700,
-                    fontStyle: FontStyle.italic,
-                    color: Colors.white,
-                  ),),
-              onTap: (){
+              child: Text(
+                'Maze Game',
+                style: GoogleFonts.caveat(
+                  textStyle: Theme.of(context).textTheme.headline4,
+                  fontSize: 60,
+                  fontWeight: FontWeight.w700,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => GameForm(false)));
               },
             ),
           ),
           GestureDetector(
-            child: Text('Add maze',
+            child: Text(
+              'Add maze',
               style: GoogleFonts.caveat(
                 textStyle: Theme.of(context).textTheme.headline4,
                 fontSize: 50,
                 fontWeight: FontWeight.w700,
                 fontStyle: FontStyle.italic,
                 color: Colors.white,
-              ),),
-            onTap: (){
+              ),
+            ),
+            onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => AddMaze()));
             },
           ),
           GestureDetector(
-            child: Text('Add Image',
+            child: Text(
+              'Add Image',
               style: GoogleFonts.caveat(
                 textStyle: Theme.of(context).textTheme.headline4,
                 fontSize: 50,
                 fontWeight: FontWeight.w700,
                 fontStyle: FontStyle.italic,
                 color: Colors.white,
-              ),),
-            onTap: (){
+              ),
+            ),
+            onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen()));
             },
           ),
           GestureDetector(
-            child: Text('Maze simulation',
+            child: Text(
+              'Maze simulation',
               style: GoogleFonts.caveat(
                 textStyle: Theme.of(context).textTheme.headline4,
                 fontSize: 50,
                 fontWeight: FontWeight.w700,
                 fontStyle: FontStyle.italic,
                 color: Colors.white,
-              ),),
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>  SimulationScreen()));
+              ),
+            ),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SimulationScreen()));
             },
           ),
           GestureDetector(
-            child: Text('About the developers',
+            child: Text(
+              'About the developers',
               style: GoogleFonts.caveat(
                 textStyle: Theme.of(context).textTheme.headline4,
                 fontSize: 40,
                 fontWeight: FontWeight.w700,
                 fontStyle: FontStyle.italic,
                 color: Colors.white,
-              ),),
-            onTap: (){
+              ),
+            ),
+            onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => Developers()));
             },
           ),
-
         ],
       ),
     );

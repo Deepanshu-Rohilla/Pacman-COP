@@ -20,19 +20,18 @@ class MazeGameScreen extends StatefulWidget {
   int playerNumber;
   int mazeDifficulty;
   bool useCustomImage;
-  MazeGameScreen(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers, this.playerNumber,this.mazeDifficulty,this.useCustomImage);
+  MazeGameScreen(this.numberOfGhosts, this.movementSpeed, this.numberOfPlayers, this.playerNumber, this.mazeDifficulty, this.useCustomImage);
   @override
   _MazeGameScreenState createState() => _MazeGameScreenState();
 }
 
 class _MazeGameScreenState extends State<MazeGameScreen> {
-
   static int numberInRow = 11;
   int numberOfSquares = numberInRow * 16;
-  int playerPosition = numberInRow  + 1;
+  int playerPosition = numberInRow + 1;
   String playerDirection = 'right';
   String playerImage = 'lib/images/player.png';
-  List<int> positionOfMovables = [ numberInRow * 2 - 2, numberInRow * 9 - 1, numberInRow * 11 - 2];
+  List<int> positionOfMovables = [numberInRow * 2 - 2, numberInRow * 9 - 1, numberInRow * 11 - 2];
   List<String> directionOfMovement = ['left', 'left', 'down'];
   List<String> imagePath = ['lib/images/red.png', 'lib/images/yellow.png', 'lib/images/cyan.png'];
   int destination = numberInRow * 15 - 2;
@@ -58,8 +57,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
     // TODO: implement initState
     var rand = Random();
     int maze = rand.nextInt(4);
-    barriers = gameBarriers[ (widget.mazeDifficulty-1)*5+ maze];
-
+    barriers = gameBarriers[(widget.mazeDifficulty - 1) * 5 + maze];
   }
 
   @override
@@ -68,7 +66,6 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
     advancedPlayer2.stop();
     super.dispose();
   }
-
 
   void gameOverDialog() {
     showDialog(
@@ -81,84 +78,76 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
                 Navigator.pop(context);
                 return Future.value(false);
               },
-          child: AlertDialog(
-            title: Center(child:Text( win ? 'You won! and the time taken is $score seconds' : 'You lose! and the time taken is $score seconds')),
-            content: Text("Your Score : " + (score).toString()),
-            actions: [
-              RaisedButton(
-                onPressed: () {
-                  resetGame();
-                },
-                textColor: Colors.white,
-                padding: const EdgeInsets.all(0.0),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: <Color>[
-                        Color(0xFF0D47A1),
-                        Color(0xFF1976D2),
-                        Color(0xFF42A5F5),
-                      ],
+              child: AlertDialog(
+                title: Center(child: Text(win ? 'You won! and the time taken is $score seconds' : 'You lose! and the time taken is $score seconds')),
+                content: Text("Your Score : " + (score).toString()),
+                actions: [
+                  RaisedButton(
+                    onPressed: () {
+                      resetGame();
+                    },
+                    textColor: Colors.white,
+                    padding: const EdgeInsets.all(0.0),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: <Color>[
+                            Color(0xFF0D47A1),
+                            Color(0xFF1976D2),
+                            Color(0xFF42A5F5),
+                          ],
+                        ),
+                      ),
+                      padding: const EdgeInsets.all(10.0),
+                      child: const Text('Try Again'),
                     ),
                   ),
-                  padding: const EdgeInsets.all(10.0),
-                  child: const Text('Try Again'),
-                ),
-              ),
-              RaisedButton(
-                onPressed: () {
-                  setState(() {
-                    scores[widget.playerNumber] = score;
-                  });
-                  resetGame();
-                  setState(() {
-
-                  });
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                  if(widget.numberOfPlayers>1){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers, false,widget.mazeDifficulty,widget.useCustomImage)));
-                  }
-                  else{
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => GameForm(false)));
-                  }
-
-
-                },
-                textColor: Colors.white,
-                padding: const EdgeInsets.all(0.0),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: <Color>[
-                        Color(0xFF0D47A1),
-                        Color(0xFF1976D2),
-                        Color(0xFF42A5F5),
-                      ],
+                  RaisedButton(
+                    onPressed: () {
+                      setState(() {
+                        scores[widget.playerNumber] = score;
+                      });
+                      resetGame();
+                      setState(() {});
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      if (widget.numberOfPlayers > 1) {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerList(widget.numberOfGhosts, widget.movementSpeed, widget.numberOfPlayers, false, widget.mazeDifficulty, widget.useCustomImage)));
+                      } else {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => GameForm(false)));
+                      }
+                    },
+                    textColor: Colors.white,
+                    padding: const EdgeInsets.all(0.0),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: <Color>[
+                            Color(0xFF0D47A1),
+                            Color(0xFF1976D2),
+                            Color(0xFF42A5F5),
+                          ],
+                        ),
+                      ),
+                      padding: const EdgeInsets.all(10.0),
+                      child: const Text('Submit Score'),
                     ),
-                  ),
-                  padding: const EdgeInsets.all(10.0),
-                  child: const Text('Submit Score'),
-                ),
-              )
-            ],
-          ));
+                  )
+                ],
+              ));
         });
-
   }
 
   void resetGame() {
 //    audioInGame.loop('pacman_beginning.wav');
     setState(() {
       playerPosition = numberInRow + 1;
-      for(int i=0;i<widget.numberOfGhosts;i++){
-        if(i==0){
+      for (int i = 0; i < widget.numberOfGhosts; i++) {
+        if (i == 0) {
           positionOfMovables[0] = numberInRow * 2 - 2;
-        }
-        else if(i==1){
+        } else if (i == 1) {
           positionOfMovables[1] = numberInRow * 9 - 1;
-        }
-        else{
+        } else {
           positionOfMovables[2] = numberInRow * 11 - 2;
         }
       }
@@ -169,42 +158,40 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
       score = 0;
     });
     Navigator.pop(context);
-
   }
 
   Widget generateCell(int index) {
-
     if (index == playerPosition) {
       switch (playerDirection) {
         case "left":
           return Transform.rotate(
             angle: pi,
-            child: !widget.useCustomImage ?  Movables(playerImage) : Movables2(),
+            child: !widget.useCustomImage ? Movables(playerImage) : Movables2(),
           );
           break;
         case "right":
-          return  !widget.useCustomImage ?  Movables(playerImage) : Movables2();
+          return !widget.useCustomImage ? Movables(playerImage) : Movables2();
           break;
         case "up":
           return Transform.rotate(
             angle: 3 * pi / 2,
-            child:  !widget.useCustomImage ?  Movables(playerImage) : Movables2(),
+            child: !widget.useCustomImage ? Movables(playerImage) : Movables2(),
           );
           break;
         case "down":
           return Transform.rotate(
             angle: pi / 2,
-            child: !widget.useCustomImage ?  Movables(playerImage) : Movables2(),
+            child: !widget.useCustomImage ? Movables(playerImage) : Movables2(),
           );
           break;
         default:
           return Movables(playerImage);
       }
-    } else if (index == positionOfMovables[0] && widget.numberOfGhosts>0) {
+    } else if (index == positionOfMovables[0] && widget.numberOfGhosts > 0) {
       return Movables(imagePath[0]);
-    } else if (index == positionOfMovables[1] && widget.numberOfGhosts>1) {
+    } else if (index == positionOfMovables[1] && widget.numberOfGhosts > 1) {
       return Movables(imagePath[1]);
-    } else if (index == positionOfMovables[2] && widget.numberOfGhosts>2) {
+    } else if (index == positionOfMovables[2] && widget.numberOfGhosts > 2) {
       return Movables(imagePath[2]);
     } else if (barriers.contains(index)) {
       return MazeCell(
@@ -212,10 +199,9 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
         outerColor: Colors.blue[800],
         // child: Text(index.toString()),
       );
-    } else if (index==destination){
+    } else if (index == destination) {
       return Movables(imageDestination);
-    }
-    else {
+    } else {
       return Path(
         innerColor: Colors.black,
         outerColor: Colors.black,
@@ -223,7 +209,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
     }
   }
 
-  void moveGhost(int index){
+  void moveGhost(int index) {
     String direction = directionOfMovement[index];
     switch (direction) {
       case "left":
@@ -327,7 +313,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
     }
   }
 
-  void movePlayer(){
+  void movePlayer() {
     switch (playerDirection) {
       case 'left':
         if (!barriers.contains(playerPosition - 1)) {
@@ -360,8 +346,6 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
     }
   }
 
-
-
   void playGame() {
     if (preGame) {
 //      audioInGame.loop('pacman_beginning.wav');
@@ -372,8 +356,8 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
           advancedPlayer.resume();
         }
 
-        if (positionOfMovables.sublist(0,widget.numberOfGhosts).contains(playerPosition) || playerPosition==destination) {
-          if(playerPosition==destination){
+        if (positionOfMovables.sublist(0, widget.numberOfGhosts).contains(playerPosition) || playerPosition == destination) {
+          if (playerPosition == destination) {
             advancedPlayer.stop();
             setState(() {
               playerPosition = -1;
@@ -381,8 +365,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
             });
 
             gameOverDialog();
-          }
-          else{
+          } else {
             advancedPlayer.stop();
             audioDeath.play('pacman_death.wav');
             setState(() {
@@ -390,16 +373,14 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
               win = false;
             });
             gameOverDialog();
-
           }
-
         }
       });
-      switch(widget.movementSpeed){
+      switch (widget.movementSpeed) {
         case 1:
           Timer.periodic(Duration(milliseconds: 240), (timer) {
             if (!paused) {
-              for(int i=0;i<widget.numberOfGhosts;i++){
+              for (int i = 0; i < widget.numberOfGhosts; i++) {
                 moveGhost(i);
               }
             }
@@ -408,7 +389,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
         case 2:
           Timer.periodic(Duration(milliseconds: 190), (timer) {
             if (!paused) {
-              for(int i=0;i<widget.numberOfGhosts;i++){
+              for (int i = 0; i < widget.numberOfGhosts; i++) {
                 moveGhost(i);
               }
             }
@@ -417,7 +398,7 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
         case 3:
           Timer.periodic(Duration(milliseconds: 170), (timer) {
             if (!paused) {
-              for(int i=0;i<widget.numberOfGhosts;i++){
+              for (int i = 0; i < widget.numberOfGhosts; i++) {
                 moveGhost(i);
               }
             }
@@ -426,19 +407,17 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
         default:
           Timer.periodic(Duration(milliseconds: 190), (timer) {
             if (!paused) {
-              for(int i=0;i<widget.numberOfGhosts;i++){
+              for (int i = 0; i < widget.numberOfGhosts; i++) {
                 moveGhost(i);
               }
             }
           });
-
       }
       Timer.periodic(Duration(milliseconds: 1000), (timer) {
         score++;
       });
 
       Timer.periodic(Duration(milliseconds: 170), (timer) {
-
         movePlayer();
       });
     }
@@ -495,11 +474,10 @@ class _MazeGameScreenState extends State<MazeGameScreen> {
                     style: TextStyle(color: Colors.white, fontSize: 23),
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       playGame();
                     },
-                    child: Text("P L A Y",
-                        style: TextStyle(color: Colors.white, fontSize: 23)),
+                    child: Text("P L A Y", style: TextStyle(color: Colors.white, fontSize: 23)),
                   ),
                   if (!paused)
                     GestureDetector(

@@ -15,7 +15,6 @@ class SimulationScreen extends StatefulWidget {
 }
 
 class _SimulationScreenState extends State<SimulationScreen> {
-
   List<int> barriers;
   List<int> stones;
   static int numberInRow = 11;
@@ -29,7 +28,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
   AudioPlayer advancedPlayer = new AudioPlayer();
   AudioCache audioMunch = new AudioCache(prefix: 'assets/');
 //  audioMunch.play('pacman_chomp.wav');
-  int i=0;
+  int i = 0;
   @override
   void initState() {
     // TODO: implement initState
@@ -41,33 +40,26 @@ class _SimulationScreenState extends State<SimulationScreen> {
     playerPosition = simulationSource[number];
     destination = simulationDestination[number];
     output = shortestPath[number];
-
   }
-
-
 
   Widget generateCell(int index) {
     if (index == playerPosition) {
       return Movables(playerImage);
-      }
-    else if(index==destination){
+    } else if (index == destination) {
       return Movables(imageDestination); // Destination is not really a movable lol
-    }
-    else if(barriers.contains(index)) {
+    } else if (barriers.contains(index)) {
       return MazeCell(
         innerColor: Colors.blue[900],
         outerColor: Colors.blue[800],
         // child: Text(index.toString()),
       );
-    }
-    else if(stones.contains(index)){
+    } else if (stones.contains(index)) {
       return Path(
         innerColor: Colors.yellow,
         outerColor: Colors.black,
         // child: Text(index.toString()),
       );
-    }
-    else {
+    } else {
       return Path(
         innerColor: Colors.black,
         outerColor: Colors.black,
@@ -75,20 +67,17 @@ class _SimulationScreenState extends State<SimulationScreen> {
     }
   }
 
-  void startSimulation(){
+  void startSimulation() {
     Timer.periodic(Duration(milliseconds: 250), (timer) {
       setState(() {
-        if(stones.contains(playerPosition)){
+        if (stones.contains(playerPosition)) {
           audioMunch.play('f.wav');
         }
         playerPosition = output[i];
         i++;
       });
-
-
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -114,11 +103,10 @@ class _SimulationScreenState extends State<SimulationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       startSimulation();
                     },
-                    child: Text("START SIMULATION",
-                        style: TextStyle(color: Colors.white, fontSize: 23)),
+                    child: Text("START SIMULATION", style: TextStyle(color: Colors.white, fontSize: 23)),
                   ),
                 ],
               ),
