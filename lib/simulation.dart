@@ -78,6 +78,9 @@ class _SimulationScreenState extends State<SimulationScreen> {
   void startSimulation(){
     Timer.periodic(Duration(milliseconds: 250), (timer) {
       setState(() {
+        if(stones.contains(playerPosition)){
+          audioMunch.play('f.wav');
+        }
         playerPosition = output[i];
         i++;
       });
