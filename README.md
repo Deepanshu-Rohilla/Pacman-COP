@@ -57,6 +57,9 @@
         +--- online_game_screen.dart // The firebase screen
         +--- playerlist.dart // Contains information about players when playing multiplayer game
         +--- preview.dart // Opens the file that previews the image
+        +--- simulation.dart // Opens the screen that does the simulation part
+        +--- simulation_form.dart
+        +--- simulation_logic.dart
         +--- sockets.dart // The socket screen
         +--- status.txt // The status of app
         
@@ -65,6 +68,9 @@
    +--- miscellaneous
    +--- etc
 ```
+
+## Simulation output
+![](img_gif/simulation.gif)
 
 ## What's working:
 
