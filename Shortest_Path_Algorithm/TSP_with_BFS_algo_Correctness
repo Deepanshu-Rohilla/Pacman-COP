@@ -1,0 +1,60 @@
+Problem Statement:
+
+Given a maze of size N*M with the cell numbers for its barriers, stones and  source.We have to find shortest-path such that  one start from source and finally come back to source position after collecting all stones  from.
+
+Assumptions : i) There always exist a solution for this problem (i.e., it is always possible to collect all stones from maze and cell containing stones  cannot be isolated).
+ii) Number of Stones is constant.
+
+ 
+Correcteness of Algorithms:
+
+We have to find shortest path such that one can move from source to destination by collecting all the stones present in the maze.
+
+1) Let denote source as s ,destination as d, and array of stones as s1,s2,..,s(k) where k is number of stones , then our general path will look like :-> General path  -> s----s(i)---s(j)---d i.e we have a path with starting vertex as "s" and ending vertex as "d" and in between we have some permutation of stones vertices say s(i) where 1<=i<=k.
+
+2) So, we can decompose our general path as follows :  General-Path: -> s--(s1) + (s1)---(s2)+....+ s(k)--d  (this is just an example not necessary actual shortest path )
+
+3) So, we have divided our original path into (k+1) different paths.
+
+
+4) Now to make our "General Path" to "Shortest Path" we have to minimize the length/size of eack (k+1)  paths , so that size of overall path can be minimized , so that we can obtain shortest path.
+
+5) Now at first step we  calculated the shortest path between "each pair" from the set of vertices { s, s1,..,s(i)...,s(k),..,d} by applying "BFS" on grid by taking one element of pair as source and other as destination. This is done by using function  "BFS".
+
+
+6) We will try to convert this problem  into Traveling Salesmans Problem :
+ 
+ i) Assuming Complet connected Graph with vertices as cells of source and stones.
+ 
+ ii) Weight of an Edge connecting two vertices represent the shortest path length between that two vertices which we already have calculated in step 5.
+ 
+ iii) We will define our Cost-Matrix as follows , where a(i,j) := Shortest path length from source "i" to destination "j" for i not equal to (!=) j and  a(i,j)= infinity for i = j.
+ 
+ iv) We have mapped each cell of source and stones such that it represnt cost matrix , and it is done as follows i=0 represnt source
+ 
+   , i=1 represent cell of stone s1 , similarly i=k represent s(k). So, finally size of Cost-Matrix is (k+1)*(k+1).
+  
+ 
+ iv) Now we have to start from source and have to visit all other vertices (i.e., vertices representing stones cells) before returning to starting vetices. Hence , we have to minimize the cost of travels (i.e., sum of edge weight during traversal). This problem is same as Original Traveling Salesman Problem.
+
+7) We now apply Traveling Salesman Algorithms . We have used following functions for this : i) solve ii) rowReduction iii) columnReduction  iv) calculateCost
+
+8) By assuming Correctness of TSP Algorithm, we will obtain paths which will  minimize the cost of travels on complete graph. This is done by using function  "printPath".
+
+9) Now , as TSP algorithms, gives the order of traversal of vertices (which are none other than source and stones vertices !!) so , by using this order , we will construct our original "Shortest Path". This is done in "main" function by taking help of "Search" funtion.
+
+
+10) Hence finally we obtain required Shortest Path.
+
+Runtime: The runtime of this algorithms will be of same order as of General BFS i.e size of graph , hence in this case size of maze i.e O(MN).
+
+Note: i) Note , in this program as we have assumed number of stones to be constant , Hence I neglected The Exponential Time Complexity of TSP Algorithms. AS for stones number vary from 1-6 ,it is to small, hence neglected
+
+ii) We have assumed that number of stones is constant , otherwise if number of stones will becomes variable then order of Algorithm would not be O(MN). In fact it will be of type O(N^2*2^(N)). where, N is the size of graph .
+
+
+
+
+
+  
+
